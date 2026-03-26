@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real World CE | OAB Elite Module</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#0b1f3a;
+      --navy-2:#102a4c;
+      --blue:#2f6df6;
+      --sky:#63b3ff;
+      --cyan:#7dd3fc;
+      --slate:#0f172a;
+      --border:rgba(148,163,184,.18);
+      --panel:rgba(255,255,255,.82);
+      --glass:blur(20px);
+      --shadow:0 20px 60px rgba(2,6,23,.10);
+      --shadow-strong:0 24px 80px rgba(15,23,42,.16);
+    }
+
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Inter',sans-serif;
+      min-height:100vh;
+      color:#0f172a;
+      background:
+        radial-gradient(circle at top left, rgba(96,165,250,.20), transparent 28%),
+        radial-gradient(circle at top right, rgba(56,189,248,.14), transparent 30%),
+        linear-gradient(180deg, #f8fbff 0%, #eef5ff 45%, #f8fafc 100%);
+    }
+
+    .custom-scroll::-webkit-scrollbar { width: 8px; height:8px; }
+    .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(148,163,184,.55); border-radius: 999px; }
+
+    .glass-panel{
+      background:var(--panel);
+      backdrop-filter:var(--glass);
+      -webkit-backdrop-filter:var(--glass);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+
+    .glass-dark{
+      background:linear-gradient(180deg, rgba(11,31,58,.92), rgba(16,42,76,.88));
+      backdrop-filter:blur(22px);
+      -webkit-backdrop-filter:blur(22px);
+      border-right:1px solid rgba(255,255,255,.08);
+      box-shadow:var(--shadow-strong);
+    }
+
+    .hero-mesh{
+      background:
+        radial-gradient(circle at 20% 20%, rgba(125,211,252,.28), transparent 22%),
+        radial-gradient(circle at 80% 18%, rgba(59,130,246,.28), transparent 24%),
+        radial-gradient(circle at 70% 80%, rgba(14,165,233,.18), transparent 24%),
+        linear-gradient(135deg, #071528 0%, #0d2342 42%, #12305d 100%);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-mesh::before,
+    .hero-mesh::after{
+      content:"";
+      position:absolute;
+      inset:auto;
+      border-radius:999px;
+      filter:blur(12px);
+      opacity:.55;
+      pointer-events:none;
+    }
+
+    .hero-mesh::before{
+      width:240px;
+      height:240px;
+      top:-80px;
+      right:-40px;
+      background:radial-gradient(circle, rgba(125,211,252,.85), rgba(125,211,252,0));
+    }
+
+    .hero-mesh::after{
+      width:220px;
+      height:220px;
+      bottom:-90px;
+      left:-40px;
+      background:radial-gradient(circle, rgba(59,130,246,.70), rgba(59,130,246,0));
+    }
+
+    .floating-orb{
+      position:absolute;
+      border-radius:999px;
+      filter:blur(6px);
+      opacity:.25;
+      animation:floatOrb 8s ease-in-out infinite;
+    }
+
+    .orb-a{ width:110px; height:110px; background:#7dd3fc; top:16%; left:58%; }
+    .orb-b{ width:76px; height:76px; background:#60a5fa; bottom:18%; right:22%; animation-delay:1.6s; }
+    .orb-c{ width:52px; height:52px; background:#93c5fd; top:58%; left:18%; animation-delay:3.1s; }
+
+    .fade-in { animation: fadeIn .45s ease-out forwards; }
+    .slide-up { animation: slideUp .45s ease-out forwards; }
+    .lift { transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .lift:hover { transform:translateY(-2px); box-shadow:var(--shadow-strong); }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.45rem .8rem;
+      border-radius:999px;
+      font-size:.75rem;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.10);
+      color:#dbeafe;
+    }
+
+    .stat-card{
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.95));
+      border:1px solid rgba(148,163,184,.16);
+      border-radius:1.25rem;
+      padding:1.1rem;
+      box-shadow:0 16px 50px rgba(15,23,42,.08);
+    }
+
+    .stat-card::after{
+      content:"";
+      position:absolute;
+      inset:auto -40px -40px auto;
+      width:110px;
+      height:110px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(96,165,250,.16), transparent 65%);
+    }
+
+    .section-shell{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,1fr);
+      gap:1.5rem;
+    }
+
+    .module-banner{
+      position:relative;
+      overflow:hidden;
+      border-radius:1.75rem;
+      padding:1.6rem;
+      color:white;
+      box-shadow:var(--shadow-strong);
+    }
+
+    .gradient-rose{ background:linear-gradient(135deg, #7f1d1d 0%, #be123c 40%, #fb7185 100%); }
+    .gradient-blue{ background:linear-gradient(135deg, #0b1f3a 0%, #1d4ed8 48%, #60a5fa 100%); }
+    .gradient-emerald{ background:linear-gradient(135deg, #064e3b 0%, #0f766e 48%, #2dd4bf 100%); }
+
+    .module-banner::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 80% 18%, rgba(255,255,255,.26), transparent 18%),
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,.18), transparent 25%);
+      pointer-events:none;
+    }
+
+    .feature-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.97), rgba(255,255,255,.90));
+      border:1px solid rgba(148,163,184,.18);
+      border-radius:1.25rem;
+      padding:1.2rem;
+      box-shadow:0 14px 40px rgba(15,23,42,.08);
+    }
+
+    .section-header-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:1.5rem;
+      padding:1.4rem;
+      color:white;
+      box-shadow:var(--shadow-strong);
+    }
+
+    .section-header-card::after{
+      content:"";
+      position:absolute;
+      inset:auto;
+      width:180px;
+      height:180px;
+      right:-60px;
+      top:-60px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(255,255,255,.22), rgba(255,255,255,0));
+    }
+
+    .nav-btn{
+      width:100%;
+      text-align:left;
+      padding:.9rem 1rem;
+      border-radius:1rem;
+      display:flex;
+      gap:.8rem;
+      align-items:flex-start;
+      transition:all .22s ease;
+      border:1px solid transparent;
+    }
+
+    .nav-btn:hover{
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.08);
+      transform:translateX(2px);
+    }
+
+    .nav-btn.active-rose{ background:rgba(255,241,242,.98); color:#9f1239; border-color:rgba(251,113,133,.28); box-shadow:0 10px 24px rgba(251,113,133,.12); }
+    .nav-btn.active-blue{ background:rgba(239,246,255,.98); color:#1d4ed8; border-color:rgba(96,165,250,.28); box-shadow:0 10px 24px rgba(59,130,246,.12); }
+    .nav-btn.active-emerald{ background:rgba(236,253,245,.98); color:#0f766e; border-color:rgba(45,212,191,.26); box-shadow:0 10px 24px rgba(20,184,166,.12); }
+
+    .nav-icon{
+      width:2rem;height:2rem;border-radius:.8rem;display:flex;align-items:center;justify-content:center;
+      background:rgba(255,255,255,.08); color:rgba(255,255,255,.82); flex-shrink:0;
+    }
+
+    .progress-track{ height:.6rem; border-radius:999px; background:rgba(226,232,240,.9); overflow:hidden; }
+    .progress-fill{ height:100%; border-radius:999px; background:linear-gradient(90deg, #1d4ed8, #38bdf8); transition:width .35s ease; }
+
+    .quiz-option{ transition:all .18s ease; }
+    .quiz-option:hover{ transform:translateY(-1px); }
+
+    .medical-grid{
+      display:grid;
+      grid-template-columns:repeat(12, minmax(0,1fr));
+      gap:1rem;
+    }
+
+    .medical-card{
+      border-radius:1.25rem;
+      border:1px solid rgba(148,163,184,.16);
+      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.96));
+      box-shadow:0 16px 44px rgba(15,23,42,.08);
+      overflow:hidden;
+    }
+
+    .medical-card-header{
+      padding:1rem 1.1rem;
+      border-bottom:1px solid rgba(226,232,240,.85);
+      background:linear-gradient(180deg, rgba(248,250,252,.95), rgba(255,255,255,.92));
+    }
+
+    .clinical-shell{
+      background:linear-gradient(180deg, rgba(8,15,30,.98), rgba(15,23,42,.96));
+      border:1px solid rgba(96,165,250,.18);
+      border-radius:1.35rem;
+      overflow:hidden;
+      box-shadow:0 20px 50px rgba(15,23,42,.24);
+    }
+
+    .fade-swap { transition: opacity 280ms ease, transform 280ms ease; will-change: opacity, transform; }
+    .swap-hidden { opacity: 0; transform: translateY(6px); pointer-events: none; }
+    .swap-visible { opacity: 1; transform: translateY(0); }
+
+    .dot-grid{
+      background-image:radial-gradient(rgba(255,255,255,.10) 1px, transparent 1px);
+      background-size:16px 16px;
+    }
+
+    .pill{
+      display:inline-flex;align-items:center;gap:.4rem;padding:.38rem .7rem;border-radius:999px;font-size:.73rem;font-weight:700;
+      background:#eff6ff;color:#1d4ed8;border:1px solid rgba(96,165,250,.26);
+    }
+
+    .completion-shell{
+      position:relative;
+      overflow:hidden;
+      border-radius:1.5rem;
+      background:linear-gradient(135deg, #0f172a 0%, #0b1f3a 42%, #0f766e 100%);
+      color:white;
+      box-shadow:var(--shadow-strong);
+    }
+
+    .completion-shell::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(125,211,252,.18), transparent 20%),
+        radial-gradient(circle at 80% 80%, rgba(45,212,191,.16), transparent 22%);
+      pointer-events:none;
+    }
+
+    .mobile-only { display:none; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes floatOrb { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+
+    @media (max-width: 1024px){
+      .hero-actions{ flex-direction:column; align-items:flex-start; }
+    }
+
+    @media (max-width: 768px){
+      .mobile-only { display:block; }
+      .desktop-stats { display:none; }
+      .section-shell { gap:1rem; }
+    }
+  </style>
+</head>
+<body class="h-screen flex overflow-hidden">
+  <aside id="sidebar" class="glass-dark text-white flex-shrink-0 transition-all duration-300 w-[310px] flex flex-col z-30 absolute md:relative h-full transform md:transform-none -translate-x-full md:translate-x-0">
+    <div class="px-5 py-5 border-b border-white/10">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-sky-300 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-900/30">
+            <span class="material-symbols-outlined text-white text-[26px]">water_drop</span>
+          </div>
+          <div>
+            <div class="text-[1.02rem] font-black tracking-[0.14em] uppercase">Real World <span class="text-sky-300">CE</span></div>
+            <div class="text-[11px] uppercase tracking-[0.28em] text-blue-100/80 mt-1">Featuring: Real Data</div>
+          </div>
+        </div>
+        <button class="md:hidden text-white/70 hover:text-white" onclick="toggleSidebar()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="px-5 py-4 border-b border-white/10">
+      <div class="chip"><span class="material-symbols-outlined text-sm">clinical_notes</span> OAB Elite Module</div>
+      <div class="mt-4">
+        <div class="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-blue-100/70 mb-2">
+          <span>Progress</span>
+          <span id="progress-text">1 / 10</span>
+        </div>
+        <div class="progress-track bg-white/10">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4 py-4 overflow-y-auto custom-scroll flex-1">
+      <div class="mb-5 grid grid-cols-3 gap-2 desktop-stats">
+        <div class="rounded-2xl bg-white/6 border border-white/8 p-3">
+          <div class="text-[11px] uppercase tracking-[0.14em] text-blue-100/65">Gaps</div>
+          <div class="text-xl font-black mt-1">3</div>
+        </div>
+        <div class="rounded-2xl bg-white/6 border border-white/8 p-3">
+          <div class="text-[11px] uppercase tracking-[0.14em] text-blue-100/65">Cases</div>
+          <div class="text-xl font-black mt-1">3</div>
+        </div>
+        <div class="rounded-2xl bg-white/6 border border-white/8 p-3">
+          <div class="text-[11px] uppercase tracking-[0.14em] text-blue-100/65">Quiz</div>
+          <div class="text-xl font-black mt-1">3</div>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-blue-100/60 px-2 mb-4 uppercase tracking-[0.25em] font-semibold">Curriculum</p>
+      <div id="nav-container" class="space-y-5"></div>
+    </div>
+
+    <div class="p-4 border-t border-white/10">
+      <div class="rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 p-4">
+        <div class="flex items-center gap-2 text-sm font-semibold text-white">
+          <span class="material-symbols-outlined text-sky-300">workspace_premium</span>
+          Clinical Impact Focus
+        </div>
+        <p class="text-xs leading-relaxed text-blue-100/75 mt-2">High production education designed to mirror real-world primary care decision-making in OAB.</p>
+      </div>
+    </div>
+  </aside>
+
+  <div id="sidebar-overlay" class="fixed inset-0 bg-slate-950/50 backdrop-blur-sm z-20 hidden md:hidden" onclick="toggleSidebar()"></div>
+
+  <div class="flex-1 flex flex-col h-full overflow-hidden relative">
+    <header class="sticky top-0 z-20 px-4 md:px-6 pt-4 md:pt-5">
+      <div class="glass-panel rounded-[1.35rem] px-4 md:px-5 py-3">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-4 min-w-0">
+            <button class="md:hidden p-2 rounded-xl hover:bg-slate-100 text-slate-700" onclick="toggleSidebar()">
+              <span class="material-symbols-outlined">menu</span>
+            </button>
+            <div class="min-w-0">
+              <div class="text-[11px] uppercase tracking-[0.22em] text-slate-500 font-semibold">Interactive Clinical Education</div>
+              <div class="flex items-center gap-2 text-sm md:text-base mt-1 min-w-0">
+                <span id="breadcrumb-module" class="font-black text-slate-900 truncate">Module</span>
+                <span class="material-symbols-outlined text-blue-600 text-[18px]">chevron_right</span>
+                <span id="breadcrumb-section" class="font-semibold text-slate-600 truncate">Section</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hidden md:flex items-center gap-3">
+            <div class="pill"><span class="material-symbols-outlined text-sm">neurology</span> CME-style Flow</div>
+            <div class="pill"><span class="material-symbols-outlined text-sm">monitoring</span> Real World CE Theme</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="flex-1 overflow-y-auto px-4 md:px-6 pb-8 pt-4 custom-scroll"></main>
+  </div>
+
+  <script>
+    const appData = {
+      modules: {
+        diagnosis: {
+          title: 'Gap 1: Diagnosis',
+          color: 'rose',
+          sections: [
+            { id: 'intro', title: 'The Burden of OAB', icon: 'monitor_heart' },
+            { id: 'barriers', title: 'Diagnostic Barriers', icon: 'visibility_off' },
+            { id: 'evaluation', title: 'AUA/SUFU Evaluation', icon: 'rule' },
+            { id: 'case-arthur', title: 'Case Study: Arthur', icon: 'elderly' },
+          ]
+        },
+        treatment: {
+          title: 'Gap 2: Treatment',
+          color: 'blue',
+          sections: [
+            { id: 'anticholinergics', title: 'Anticholinergic Risk', icon: 'warning' },
+            { id: 'beta3', title: 'Beta-3 Agonists', icon: 'medication' },
+            { id: 'case-martha', title: 'Case Study: Martha', icon: 'person' },
+          ]
+        },
+        sdm: {
+          title: 'Gap 3: SDM',
+          color: 'emerald',
+          sections: [
+            { id: 'step-therapy', title: 'The Adherence Cliff', icon: 'trending_down' },
+            { id: 'menu', title: 'Menu of Options', icon: 'list_alt' },
+            { id: 'case-elena', title: 'Case Study: Elena', icon: 'co_present' },
+          ]
+        }
+      }
+    };
+
+    let activeModuleId = 'diagnosis';
+    let activeSectionId = 'intro';
+    let quizStates = {};
+
+    function getAllSections() {
+      const list = [];
+      for (const [moduleId, module] of Object.entries(appData.modules)) {
+        module.sections.forEach(section => list.push({ moduleId, ...section, moduleTitle: module.title, color: module.color }));
+      }
+      return list;
+    }
+
+    function getSectionIndex(moduleId, sectionId) {
+      const all = getAllSections();
+      return all.findIndex(item => item.moduleId === moduleId && item.id === sectionId);
+    }
+
+    function getProgressPercent() {
+      const index = getSectionIndex(activeModuleId, activeSectionId);
+      const total = getAllSections().length;
+      return ((index + 1) / total) * 100;
+    }
+
+    function colorClasses(color) {
+      const map = {
+        rose: {
+          banner: 'gradient-rose',
+          accentBtn: 'bg-rose-600 hover:bg-rose-700',
+          text: 'text-rose-700',
+          soft: 'bg-rose-50 border-rose-100',
+          badge: 'bg-rose-100 text-rose-700 border-rose-200',
+          ring: 'ring-rose-200',
+          gradientText: 'from-rose-500 to-pink-500'
+        },
+        blue: {
+          banner: 'gradient-blue',
+          accentBtn: 'bg-blue-600 hover:bg-blue-700',
+          text: 'text-blue-700',
+          soft: 'bg-blue-50 border-blue-100',
+          badge: 'bg-blue-100 text-blue-700 border-blue-200',
+          ring: 'ring-blue-200',
+          gradientText: 'from-blue-500 to-cyan-500'
+        },
+        emerald: {
+          banner: 'gradient-emerald',
+          accentBtn: 'bg-emerald-600 hover:bg-emerald-700',
+          text: 'text-emerald-700',
+          soft: 'bg-emerald-50 border-emerald-100',
+          badge: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+          ring: 'ring-emerald-200',
+          gradientText: 'from-emerald-500 to-teal-500'
+        }
+      };
+      return map[color];
+    }
+
+    function renderHero(moduleId, kicker, title, text, stats = []) {
+      const module = appData.modules[moduleId];
+      const color = colorClasses(module.color);
+      const statsHtml = stats.map(stat => `
+        <div class="stat-card lift">
+          <div class="text-[11px] uppercase tracking-[0.18em] text-slate-500 font-bold">${stat.label}</div>
+          <div class="text-3xl font-black text-slate-900 mt-2">${stat.value}</div>
+          <div class="text-sm text-slate-600 mt-2 leading-relaxed">${stat.copy}</div>
+        </div>
+      `).join('');
+
+      return `
+        <section class="section-shell slide-up">
+          <div class="hero-mesh rounded-[2rem] p-6 md:p-8 shadow-[0_28px_80px_rgba(15,23,42,.18)] border border-white/10 text-white">
+            <div class="floating-orb orb-a"></div>
+            <div class="floating-orb orb-b"></div>
+            <div class="floating-orb orb-c"></div>
+            <div class="relative z-10 flex flex-col gap-8">
+              <div class="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-6 hero-actions">
+                <div class="max-w-3xl">
+                  <div class="chip mb-4">${kicker}</div>
+                  <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-[1.02] max-w-3xl">${title}</h1>
+                  <p class="mt-4 text-base md:text-lg text-blue-50/88 max-w-2xl leading-relaxed">${text}</p>
+                </div>
+                <div class="glass-panel !bg-white/10 !border-white/10 rounded-[1.35rem] p-4 min-w-[260px] max-w-sm text-left">
+                  <div class="text-[11px] uppercase tracking-[0.18em] text-blue-100/70 font-bold">Why this matters</div>
+                  <div class="mt-2 text-xl font-extrabold">Primary care decisions shape downstream burden.</div>
+                  <p class="mt-2 text-sm text-blue-50/75 leading-relaxed">This module translates evidence into practical, patient-facing decisions that feel real in clinic.</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">${statsHtml}</div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderSectionHeader(moduleId, title, copy, label = 'Section Overview') {
+      const module = appData.modules[moduleId];
+      const color = colorClasses(module.color);
+      return `
+        <div class="section-header-card ${color.banner}">
+          <div class="relative z-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div class="max-w-3xl">
+              <div class="chip mb-2">${label}</div>
+              <h2 class="text-2xl md:text-3xl font-black tracking-tight">${title}</h2>
+              <p class="mt-3 text-white/84 text-base leading-relaxed max-w-2xl">${copy}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderNavigationButtons(prev, next) {
+      return `
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
+          <div>${prev ? `<button onclick="navigateTo('${prev.moduleId}', '${prev.sectionId}')" class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border border-slate-200 bg-white text-slate-700 font-semibold hover:border-slate-300 hover:bg-slate-50 transition"><span class="material-symbols-outlined text-[18px]">arrow_back</span>${prev.label}</button>` : ''}</div>
+          <div>${next ? `<button onclick="navigateTo('${next.moduleId}', '${next.sectionId}')" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition shadow-lg shadow-slate-900/10">${next.label}<span class="material-symbols-outlined text-[18px]">arrow_forward</span></button>` : ''}</div>
+        </div>
+      `;
+    }
+
+    function getPrevNext(moduleId, sectionId) {
+      const all = getAllSections();
+      const index = getSectionIndex(moduleId, sectionId);
+      const prev = index > 0 ? all[index - 1] : null;
+      const next = index < all.length - 1 ? all[index + 1] : null;
+      return {
+        prev: prev ? { moduleId: prev.moduleId, sectionId: prev.id, label: prev.title } : null,
+        next: next ? { moduleId: next.moduleId, sectionId: next.id, label: next.title } : null
+      };
+    }
+
+    function renderQuizComponent(id, question, options, correctIndex, explanation) {
+      const state = quizStates[id] || { submitted: false, selected: null };
+      const isCorrect = state.selected === correctIndex;
+      const optionsHtml = options.map((opt, idx) => {
+        let style = 'bg-white border-slate-200 hover:border-blue-300';
+        let icon = '<div class="w-5 h-5 rounded-full border border-slate-300"></div>';
+        if (!state.submitted && state.selected === idx) {
+          style = 'bg-blue-50 border-blue-500 ring-2 ring-blue-200';
+          icon = '<div class="w-5 h-5 rounded-full border border-blue-500 bg-white flex items-center justify-center"><div class="w-2.5 h-2.5 rounded-full bg-blue-500"></div></div>';
+        } else if (state.submitted) {
+          if (idx === correctIndex) {
+            style = 'bg-emerald-50 border-emerald-300 ring-2 ring-emerald-200';
+            icon = '<div class="w-5 h-5 rounded-full bg-emerald-500 border-emerald-500 flex items-center justify-center"><span class="material-symbols-outlined text-white text-sm">check</span></div>';
+          } else if (idx === state.selected) {
+            style = 'bg-red-50 border-red-300 ring-2 ring-red-200';
+            icon = '<div class="w-5 h-5 rounded-full border-red-500 flex items-center justify-center"><span class="material-symbols-outlined text-red-500 text-sm">close</span></div>';
+          } else {
+            style = 'bg-slate-50 border-slate-200 opacity-60';
+          }
+        }
+        const clickAttr = !state.submitted ? `onclick="selectQuizOption('${id}', ${idx})"` : '';
+        return `<button ${clickAttr} class="quiz-option text-left w-full p-4 rounded-2xl border transition-all duration-200 flex items-start gap-3 mb-3 ${style}">${icon}<span class="text-sm leading-relaxed ${state.submitted && idx === correctIndex ? 'font-bold text-emerald-900' : 'text-slate-700'}">${opt}</span></button>`;
+      }).join('');
+
+      const feedback = state.submitted
+        ? `<div class="mt-5 p-5 rounded-2xl ${isCorrect ? 'bg-emerald-50 border border-emerald-200 text-emerald-900' : 'bg-red-50 border border-red-200 text-red-900'} fade-in"><div class="flex items-center gap-2 font-bold mb-2"><span class="material-symbols-outlined">${isCorrect ? 'check_circle' : 'cancel'}</span>${isCorrect ? 'Correct' : 'Incorrect'}</div><p class="text-sm leading-relaxed">${explanation}</p></div>`
+        : `<button onclick="submitQuiz('${id}', ${correctIndex})" class="mt-4 w-full py-3.5 rounded-2xl font-bold transition-all ${state.selected !== null ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/20' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}" ${state.selected === null ? 'disabled' : ''}>Submit Answer</button>`;
+
+      return `
+        <div class="medical-card p-0 overflow-hidden">
+          <div class="medical-card-header flex items-center justify-between gap-4">
+            <div>
+              <div class="pill">Knowledge Check</div>
+              <h3 class="font-bold text-slate-900 mt-3 text-lg leading-snug">${question}</h3>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            ${optionsHtml}
+            ${feedback}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderClinicalVideoBlock(key, name, posterSrc, videoSrc, observationText, opts = {}) {
+      const posterMaxClass = opts.posterMaxClass || 'max-h-[360px]';
+      const label = opts.label || 'Simulate Patient Encounter';
+      return `
+        <div class="clinical-shell my-6" data-clinical-video-block="1" data-cv-key="${key}">
+          <button type="button" class="w-full relative block group fade-swap swap-visible" data-cv-poster aria-label="Play ${name} clinical observation video">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-300/10 z-10"></div>
+            <img src="${posterSrc}" alt="${name}" class="w-full ${posterMaxClass} object-cover opacity-75 group-hover:opacity-95 transition duration-500" />
+            <div class="absolute inset-0 dot-grid opacity-20"></div>
+            <div class="absolute inset-0 flex items-center justify-center z-20">
+              <div class="h-20 w-20 rounded-full bg-blue-500/85 backdrop-blur border border-blue-300/40 shadow-2xl flex items-center justify-center group-hover:scale-110 transition duration-300">
+                <span class="material-symbols-outlined text-white text-4xl">play_arrow</span>
+              </div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-transparent z-20 text-left">
+              <div class="text-white font-semibold text-xl">${label}</div>
+              <div class="text-blue-200 text-sm mt-1">Interactive clinical observation and patient-reported burden</div>
+            </div>
+          </button>
+
+          <div class="hidden relative fade-swap swap-hidden bg-slate-900" data-cv-wrap>
+            <div class="w-full min-h-[320px] md:min-h-[360px] flex flex-col items-center justify-center p-8 text-center bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950">
+              <div class="pill !bg-blue-500/15 !text-blue-100 !border-blue-300/20 mb-4">Patient Report</div>
+              <div class="bg-blue-500/20 p-4 rounded-full mb-4 border border-blue-300/10">
+                <span class="material-symbols-outlined text-5xl text-blue-300">forum</span>
+              </div>
+              <h3 class="font-semibold text-2xl text-white mb-3">${name}</h3>
+              <p class="text-slate-200 max-w-3xl mx-auto leading-relaxed text-lg italic">${observationText}</p>
+            </div>
+            <button type="button" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full p-2.5 backdrop-blur transition" data-cv-replay aria-label="Close report">
+              <span class="material-symbols-outlined text-sm">close</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function initClinicalVideos() {
+      const blocks = document.querySelectorAll('[data-clinical-video-block="1"]');
+      blocks.forEach(block => {
+        const posterBtn = block.querySelector('[data-cv-poster]');
+        const wrap = block.querySelector('[data-cv-wrap]');
+        const replayBtn = block.querySelector('[data-cv-replay]');
+        if (!posterBtn || !wrap) return;
+
+        const showContent = () => {
+          posterBtn.classList.add('swap-hidden');
+          posterBtn.classList.remove('swap-visible');
+          setTimeout(() => posterBtn.classList.add('hidden'), 280);
+          wrap.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            wrap.classList.remove('swap-hidden');
+            wrap.classList.add('swap-visible');
+          });
+        };
+
+        const hideContent = () => {
+          wrap.classList.add('swap-hidden');
+          wrap.classList.remove('swap-visible');
+          setTimeout(() => wrap.classList.add('hidden'), 280);
+          posterBtn.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            posterBtn.classList.remove('swap-hidden');
+            posterBtn.classList.add('swap-visible');
+          });
+        };
+
+        posterBtn.addEventListener('click', showContent);
+        if (replayBtn) replayBtn.addEventListener('click', hideContent);
+      });
+    }
+
+    function renderSidebar() {
+      const container = document.getElementById('nav-container');
+      let html = '';
+      for (const modKey in appData.modules) {
+        const module = appData.modules[modKey];
+        html += `<div class="mb-2"><div class="px-2 pb-2 text-[11px] uppercase tracking-[0.2em] text-blue-100/55 font-semibold">${module.title}</div><div class="space-y-2">`;
+        module.sections.forEach(section => {
+          const isActive = activeModuleId === modKey && activeSectionId === section.id;
+          const activeClass = isActive ? `active-${module.color}` : 'text-white/82';
+          html += `
+            <button onclick="navigateTo('${modKey}', '${section.id}')" class="nav-btn ${activeClass}">
+              <div class="nav-icon ${isActive ? 'bg-slate-900/6 text-current' : ''}"><span class="material-symbols-outlined text-[18px]">${section.icon}</span></div>
+              <div class="min-w-0">
+                <div class="font-semibold leading-tight">${section.title}</div>
+                <div class="text-xs mt-1 ${isActive ? 'opacity-75' : 'text-white/45'}">Interactive learning section</div>
+              </div>
+            </button>
+          `;
+        });
+        html += `</div></div>`;
+      }
+      container.innerHTML = html;
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const percent = getProgressPercent();
+      const index = getSectionIndex(activeModuleId, activeSectionId) + 1;
+      const total = getAllSections().length;
+      document.getElementById('progress-fill').style.width = `${percent}%`;
+      document.getElementById('progress-text').textContent = `${index} / ${total}`;
+    }
+
+    function renderMainContent() {
+      const module = appData.modules[activeModuleId];
+      const section = module.sections.find(s => s.id === activeSectionId);
+      document.getElementById('breadcrumb-module').textContent = module.title;
+      document.getElementById('breadcrumb-section').textContent = section.title;
+      const contentContainer = document.getElementById('main-content');
+      contentContainer.innerHTML = getSectionContent(activeModuleId, activeSectionId);
+      contentContainer.scrollTop = 0;
+      renderSidebar();
+      initClinicalVideos();
+      if (window.innerWidth < 768) {
+        document.getElementById('sidebar').classList.add('-translate-x-full');
+        document.getElementById('sidebar-overlay').classList.add('hidden');
+      }
+    }
+
+    function navigateTo(modId, secId) {
+      activeModuleId = modId;
+      activeSectionId = secId;
+      renderMainContent();
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      if (sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+      }
+    }
+
+    window.selectQuizOption = function(qid, idx) {
+      if (!quizStates[qid]) quizStates[qid] = { submitted: false };
+      quizStates[qid].selected = idx;
+      renderMainContent();
+    }
+
+    window.submitQuiz = function(qid, idx) {
+      if (!quizStates[qid]) return;
+      quizStates[qid].submitted = true;
+      renderMainContent();
+    }
+
+    function getSectionContent(moduleId, sectionId) {
+      const nav = getPrevNext(moduleId, sectionId);
+
+      if (moduleId === 'diagnosis') {
+        if (sectionId === 'intro') return `
+          ${renderHero('diagnosis', 'Practice Gap 1', 'Underdiagnosis and burden are still shaping OAB outcomes.', 'OAB is highly prevalent yet still under-recognized in primary care. This section frames the true clinical, quality-of-life, and downstream economic burden when symptoms are normalized, missed, or minimized.', [
+            { label: 'Estimated prevalence', value: '16–43%', copy: 'Adults affected across the US, with burden increasing by age.' },
+            { label: 'Annual US cost', value: '$36.5B', copy: 'Direct medical and indirect productivity costs add up fast.' },
+            { label: 'Clinical consequence', value: 'Falls', copy: 'Urgency and nocturia can translate into injury risk.' }
+          ])}
+          <section class="section-shell">
+            <div class="medical-grid">
+              <div class="medical-card col-span-12 lg:col-span-8 p-6 md:p-7">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="h-11 w-11 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center"><span class="material-symbols-outlined">analytics</span></div>
+                  <div>
+                    <div class="text-sm uppercase tracking-[0.18em] text-slate-500 font-bold">Clinical takeaway</div>
+                    <h2 class="text-2xl font-black text-slate-900">The burden extends well beyond urinary symptoms.</h2>
+                  </div>
+                </div>
+                <p class="text-slate-600 leading-relaxed text-[15px]">Untreated OAB has meaningful implications for safety, sleep, emotional health, sexual function, and healthcare utilization. The patient may describe “just frequency,” but the clinical burden often includes hidden risks that compound over time.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                  <div class="feature-card border-l-4 border-rose-400">
+                    <div class="text-sm font-bold text-slate-900 mb-2">Patient-level harms</div>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                      <li class="flex gap-2"><span class="material-symbols-outlined text-rose-500 text-[18px]">check_circle</span>Sleep disruption and urgency-related anxiety</li>
+                      <li class="flex gap-2"><span class="material-symbols-outlined text-rose-500 text-[18px]">check_circle</span>Embarrassment, isolation, and quality-of-life erosion</li>
+                      <li class="flex gap-2"><span class="material-symbols-outlined text-rose-500 text-[18px]">check_circle</span>Higher risk of falls and fractures</li>
+                    </ul>
+                  </div>
+                  <div class="feature-card border-l-4 border-slate-800">
+                    <div class="text-sm font-bold text-slate-900 mb-2">System-level harms</div>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                      <li class="flex gap-2"><span class="material-symbols-outlined text-slate-700 text-[18px]">radio_button_checked</span>More downstream visits and diagnostic workups</li>
+                      <li class="flex gap-2"><span class="material-symbols-outlined text-slate-700 text-[18px]">radio_button_checked</span>Reduced work productivity and daily function</li>
+                      <li class="flex gap-2"><span class="material-symbols-outlined text-slate-700 text-[18px]">radio_button_checked</span>Higher total annual economic burden</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-white to-rose-50/50">
+                <div class="pill !bg-rose-100 !text-rose-700 !border-rose-200">Burden Snapshot</div>
+                <div class="space-y-4 mt-5">
+                  <div>
+                    <div class="text-4xl font-black text-rose-600">2.3x</div>
+                    <div class="text-sm text-slate-600 mt-1">Increased fall and fracture risk described in the module content.</div>
+                  </div>
+                  <div class="pt-4 border-t border-rose-100">
+                    <div class="text-4xl font-black text-rose-600">2.5x</div>
+                    <div class="text-sm text-slate-600 mt-1">Greater odds of depression when symptoms remain unaddressed.</div>
+                  </div>
+                  <div class="pt-4 border-t border-rose-100">
+                    <div class="text-4xl font-black text-rose-600">4.7x</div>
+                    <div class="text-sm text-slate-600 mt-1">Greater odds of urinary tract infection burden discussed here.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            ${renderNavigationButtons(null, { moduleId:'diagnosis', sectionId:'barriers', label:'Diagnostic Barriers' })}
+          </section>
+        `;
+
+        if (sectionId === 'barriers') return `
+          <section class="section-shell slide-up">
+            ${renderSectionHeader('diagnosis', 'Why OAB remains underdiagnosed', 'Diagnostic failure is rarely one single issue. It usually lives at the intersection of stigma, normalization, workflow pressure, and assumptions made during primary care visits.')}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <div class="feature-card border-t-4 border-rose-400">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="h-11 w-11 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center"><span class="material-symbols-outlined">record_voice_over</span></div>
+                  <div>
+                    <div class="text-sm uppercase tracking-[0.16em] text-slate-500 font-bold">Patient factors</div>
+                    <h3 class="text-xl font-black text-slate-900">What patients may not say out loud</h3>
+                  </div>
+                </div>
+                <div class="space-y-3 text-sm text-slate-600">
+                  <div class="rounded-2xl border border-rose-100 bg-rose-50/70 p-4"><strong class="text-slate-900">Normalization:</strong> Symptoms are dismissed as a normal part of aging, childbirth, or “just getting older.”</div>
+                  <div class="rounded-2xl border border-rose-100 bg-white p-4"><strong class="text-slate-900">Stigma:</strong> Urinary urgency and leakage are often embarrassing enough that patients avoid bringing them up.</div>
+                  <div class="rounded-2xl border border-rose-100 bg-white p-4"><strong class="text-slate-900">Self-management:</strong> Patients may reduce fluids or rely on pads instead of seeking diagnosis and therapy.</div>
+                </div>
+              </div>
+
+              <div class="feature-card border-t-4 border-slate-800">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="h-11 w-11 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center"><span class="material-symbols-outlined">stethoscope</span></div>
+                  <div>
+                    <div class="text-sm uppercase tracking-[0.16em] text-slate-500 font-bold">Clinician factors</div>
+                    <h3 class="text-xl font-black text-slate-900">What gets missed during the visit</h3>
+                  </div>
+                </div>
+                <div class="space-y-3 text-sm text-slate-600">
+                  <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4"><strong class="text-slate-900">No proactive screening:</strong> Bladder symptoms often remain invisible unless directly asked about.</div>
+                  <div class="rounded-2xl border border-slate-200 bg-white p-4"><strong class="text-slate-900">Misattribution:</strong> In older male patients, symptoms may be prematurely assigned to prostate-related causes alone.</div>
+                  <div class="rounded-2xl border border-slate-200 bg-white p-4"><strong class="text-slate-900">Visit pressure:</strong> Competing demands make nuanced symptom exploration less likely in routine care.</div>
+                </div>
+              </div>
+            </div>
+            <div class="medical-card p-6 md:p-7">
+              <div class="pill">Clinical frame</div>
+              <h3 class="text-xl font-black text-slate-900 mt-4">OAB is often underdiagnosed because both sides assume the symptoms are expected.</h3>
+              <p class="text-slate-600 mt-3 leading-relaxed">The most impactful move in primary care is often very simple: ask. Screening for urgency, frequency, nocturia, and urgency incontinence in at-risk patients can uncover significant disease burden that otherwise stays hidden.</p>
+            </div>
+            ${renderNavigationButtons({ moduleId:'diagnosis', sectionId:'intro', label:'The Burden of OAB' }, { moduleId:'diagnosis', sectionId:'evaluation', label:'AUA/SUFU Evaluation' })}
+          </section>
+        `;
+
+        if (sectionId === 'evaluation') return `
+          <section class="section-shell slide-up">
+            ${renderSectionHeader('diagnosis', '2024 AUA/SUFU evaluation pathway', 'For most patients, the diagnosis of OAB is clinical. The early workup should be focused, practical, and designed to rule out common competing explanations without overtesting.')}
+            <div class="medical-grid">
+              <div class="medical-card col-span-12 lg:col-span-8 p-0 overflow-hidden">
+                <div class="medical-card-header">
+                  <div class="pill !bg-emerald-100 !text-emerald-700 !border-emerald-200">Recommended initial evaluation</div>
+                  <h3 class="text-2xl font-black text-slate-900 mt-3">What should happen first in primary care</h3>
+                </div>
+                <div class="p-6 md:p-7 space-y-4">
+                  <div class="flex gap-4 items-start rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4"><div class="bg-emerald-500 text-white w-9 h-9 rounded-full flex items-center justify-center font-black flex-shrink-0">1</div><div><strong class="text-slate-900 block">Medical history</strong><span class="text-sm text-slate-600">Assess bladder symptoms, medication contributors such as diuretics, and mobility or fall-related risk.</span></div></div>
+                  <div class="flex gap-4 items-start rounded-2xl border border-emerald-100 bg-white p-4"><div class="bg-emerald-500 text-white w-9 h-9 rounded-full flex items-center justify-center font-black flex-shrink-0">2</div><div><strong class="text-slate-900 block">Focused physical examination</strong><span class="text-sm text-slate-600">Use a targeted exam to identify contributing or competing clinical factors.</span></div></div>
+                  <div class="flex gap-4 items-start rounded-2xl border border-emerald-100 bg-white p-4"><div class="bg-emerald-500 text-white w-9 h-9 rounded-full flex items-center justify-center font-black flex-shrink-0">3</div><div><strong class="text-slate-900 block">Urinalysis</strong><span class="text-sm text-slate-600">Rule out UTI, hematuria, glucosuria, and other common alternative causes.</span></div></div>
+                </div>
+              </div>
+
+              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-red-50 to-white">
+                <div class="pill !bg-red-100 !text-red-700 !border-red-200">Avoid routine overtesting</div>
+                <h3 class="text-xl font-black text-slate-900 mt-4">What not to do routinely</h3>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="px-3 py-2 rounded-full bg-white border border-red-200 text-red-700 text-xs font-bold">Urodynamics</span>
+                  <span class="px-3 py-2 rounded-full bg-white border border-red-200 text-red-700 text-xs font-bold">Cystoscopy</span>
+                  <span class="px-3 py-2 rounded-full bg-white border border-red-200 text-red-700 text-xs font-bold">Urinary tract imaging</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-4 leading-relaxed">These are not routine first-step tests for an uncomplicated primary care presentation of OAB symptoms.</p>
+              </div>
+            </div>
+            ${renderNavigationButtons({ moduleId:'diagnosis', sectionId:'barriers', label:'Diagnostic Barriers' }, { moduleId:'diagnosis', sectionId:'case-arthur', label:'Case Study: Arthur' })}
+          </section>
+        `;
+
+        if (sectionId === 'case-arthur') return `
+          <section class="section-shell slide-up">
+            ${renderSectionHeader('diagnosis', 'Case Study: Arthur', 'Arthur presents with symptoms that could easily be misattributed. The educational point here is to slow down, consider OAB, and follow a guideline-based clinical evaluation.')}
+            <div class="medical-grid">
+              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-white to-rose-50/40">
+                <div class="pill !bg-rose-100 !text-rose-700 !border-rose-200">Patient Profile</div>
+                <div class="mt-5 flex items-start gap-4">
+                  <div class="w-14 h-14 rounded-2xl bg-slate-200 text-slate-700 flex items-center justify-center text-xl font-black">A</div>
+                  <div>
+                    <h3 class="text-xl font-black text-slate-900">Arthur</h3>
+                    <p class="text-sm text-slate-600 mt-1">72-year-old male presenting during a routine check-up.</p>
+                  </div>
+                </div>
+                <div class="mt-6 rounded-2xl border border-rose-100 bg-white p-4 text-sm text-slate-600 leading-relaxed">
+                  <strong class="text-slate-900 block mb-1">Clinical trap</strong>
+                  Because Arthur is older and male, it is easy to assume the symptoms are only related to BPH. The case is designed to challenge that shortcut.
+                </div>
+              </div>
+              <div class="col-span-12 lg:col-span-8">
+                ${renderClinicalVideoBlock('arthur', 'Arthur', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=1200&q=80', '#', '“I have to go to the bathroom all the time, especially at night. It comes on so suddenly. I actually tripped in the hallway last week rushing to the toilet.”', { posterMaxClass: 'h-[340px] md:h-[380px] object-cover object-top', label: 'Arthur Clinical Observation' })}
+              </div>
+            </div>
+            ${renderQuizComponent('quiz-arthur', 'According to AUA/SUFU guidance, what is the most appropriate next step for Arthur in primary care?', [
+              'Referral for immediate cystoscopy to rule out obstruction',
+              'Thorough history, focused exam, and a urinalysis',
+              'Order comprehensive urodynamic testing'
+            ], 1, 'Correct approach: start with a history, a focused physical examination, and urinalysis. OAB should remain on the differential, and invasive testing is not routinely the first step.')}
+            ${renderNavigationButtons({ moduleId:'diagnosis', sectionId:'evaluation', label:'AUA/SUFU Evaluation' }, { moduleId:'treatment', sectionId:'anticholinergics', label:'Anticholinergic Risk' })}
+          </section>
+        `;
+      }
+
+      if (moduleId === 'treatment') {
+        if (sectionId === 'anticholinergics') return `
+          ${renderHero('treatment', 'Practice Gap 2', 'Treatment decisions should balance efficacy with long-term cognitive safety.', 'The module shifts from diagnosis into pharmacologic risk. Anticholinergic prescribing remains common, yet safer pathways exist and should be actively considered in primary care decision-making.', [
+            { label: 'Prescribing volume', value: '57.9%', copy: 'PCPs account for the highest volume of anticholinergic prescribing for OAB in the referenced content.' },
+            { label: 'Key concern', value: 'Dementia', copy: 'Cumulative anticholinergic burden is a major safety issue in older adults.' },
+            { label: 'Clinical signal', value: 'Dry mouth', copy: 'Classic side effects often impair adherence and quality of life.' }
+          ])}
+          <section class="section-shell">
+            <div class="medical-grid">
+              <div class="medical-card col-span-12 lg:col-span-7 p-6 md:p-7">
+                <div class="flex items-start gap-4 mb-5">
+                  <div class="h-12 w-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[28px]">psychology_alt</span></div>
+                  <div>
+                    <div class="pill !bg-red-100 !text-red-700 !border-red-200">Risk focus</div>
+                    <h2 class="text-2xl font-black text-slate-900 mt-3">The anticholinergic problem</h2>
+                    <p class="text-slate-600 mt-2 leading-relaxed">Chronic anticholinergic exposure is tied to meaningful cognitive risk. The challenge is not just side effects in the moment. It is the cumulative burden over time in already vulnerable patients.</p>
+                  </div>
+                </div>
+                <div class="feature-card border-l-4 border-red-400">
+                  <h3 class="font-bold text-slate-900 mb-2">Why this matters in primary care</h3>
+                  <p class="text-sm text-slate-600 leading-relaxed">When an OAB medication is selected quickly without a full risk discussion, the patient may inherit dry mouth, constipation, brain fog, and a medication burden that feels harder to justify as safer alternatives become available.</p>
+                </div>
+              </div>
+              <div class="medical-card col-span-12 lg:col-span-5 p-6 md:p-7 bg-gradient-to-br from-white to-blue-50/50">
+                <div class="pill">Prescribing reality</div>
+                <div class="mt-5">
+                  <div class="flex items-center justify-between text-sm font-semibold text-slate-600 mb-2"><span>PCPs</span><span>57.9%</span></div>
+                  <div class="w-full bg-slate-200 rounded-full h-6 overflow-hidden"><div class="h-6 rounded-full bg-gradient-to-r from-blue-600 to-sky-400 flex items-center pl-3 text-xs font-bold text-white" style="width:57.9%">57.9%</div></div>
+                </div>
+                <div class="mt-5 pt-5 border-t border-slate-200 text-sm text-slate-600 leading-relaxed">
+                  Despite the evidence of harm, anticholinergics continue to be widely used in routine care. That makes medication selection a meaningful educational intervention point.
+                </div>
+              </div>
+            </div>
+            ${renderNavigationButtons({ moduleId:'diagnosis', sectionId:'case-arthur', label:'Case Study: Arthur' }, { moduleId:'treatment', sectionId:'beta3', label:'Beta-3 Agonists' })}
+          </section>
+        `;
+
+        if (sectionId === 'beta3') return `
+          <section class="section-shell slide-up">
+            ${renderSectionHeader('treatment', 'Beta-3 agonists as a safer pathway', 'The educational message is straightforward: if pharmacotherapy is needed, beta-3 agonists deserve serious consideration before anticholinergics because they avoid the same cognitive burden.')}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <div class="feature-card border-t-4 border-blue-500">
+                <div class="pill">Mirabegron</div>
+                <h3 class="text-xl font-black text-slate-900 mt-4">Established beta-3 option</h3>
+                <ul class="mt-4 space-y-3 text-sm text-slate-600">
+                  <li class="flex gap-2"><span class="material-symbols-outlined text-blue-500 text-[18px]">check_circle</span>First beta-3 agonist approved</li>
+                  <li class="flex gap-2"><span class="material-symbols-outlined text-blue-500 text-[18px]">check_circle</span>Lower dry mouth incidence than tolterodine in the SCORPIO trial content referenced here</li>
+                  <li class="flex gap-2"><span class="material-symbols-outlined text-blue-500 text-[18px]">check_circle</span>No anticholinergic cognitive burden</li>
+                </ul>
+              </div>
+              <div class="feature-card border-t-4 border-cyan-500">
+                <div class="pill !bg-cyan-50 !text-cyan-700 !border-cyan-200">Vibegron</div>
+                <h3 class="text-xl font-black text-slate-900 mt-4">Newer, selective option</h3>
+                <ul class="mt-4 space-y-3 text-sm text-slate-600">
+                  <li class="flex gap-2"><span class="material-symbols-outlined text-cyan-500 text-[18px]">check_circle</span>Highly selective beta-3 agonist</li>
+                  <li class="flex gap-2"><span class="material-symbols-outlined text-cyan-500 text-[18px]">check_circle</span>More polypharmacy friendly because it does not impact CYP2D6 in the way highlighted in the source content</li>
+                  <li class="flex gap-2"><span class="material-symbols-outlined text-cyan-500 text-[18px]">check_circle</span>Longer persistence described in retrospective claims data within the module</li>
+                </ul>
+              </div>
+            </div>
+            <div class="medical-card p-6 md:p-7">
+              <div class="pill">Clinical implication</div>
+              <h3 class="text-xl font-black text-slate-900 mt-4">Safer prescribing is also better adherence design.</h3>
+              <p class="text-slate-600 mt-3 leading-relaxed">When treatment aligns with tolerability and daily life, persistence improves. The real conversation is not simply “what works,” but “what a patient can live with.”</p>
+            </div>
+            ${renderNavigationButtons({ moduleId:'treatment', sectionId:'anticholinergics', label:'Anticholinergic Risk' }, { moduleId:'treatment', sectionId:'case-martha', label:'Case Study: Martha' })}
+          </section>
+        `;
+
+        if (sectionId === 'case-martha') return `
+          <section class="section-shell slide-up">
+            ${renderSectionHeader('treatment', 'Case Study: Martha', 'Martha helps translate the safety discussion into a clinical decision. The key educational goal is recognizing intolerable anticholinergic burden and pivoting toward a better medication choice.')}
+            <div class="medical-grid">
+              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-white to-blue-50/40">
+                <div class="pill">Patient Profile</div>
+                <div class="mt-5 flex items-start gap-4">
+                  <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl font-black">M</div>
+                  <div>
+                    <h3 class="text-xl font-black text-slate-900">Martha</h3>
+                    <p class="text-sm text-slate-600 mt-1">68-year-old with hypertension and overactive bladder.</p>
+                  </div>
+                </div>
+                <div class="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-slate-700 leading-relaxed">
+                  <strong class="text-amber-900 block mb-1">Clinical note</strong>
+                  Dry mouth and “brain fog” should raise concern about classic anticholinergic burden.
+                </div>
+              </div>
+              <div class="col-span-12 lg:col-span-8">
+                ${renderClinicalVideoBlock('martha', 'Martha', 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80', '#', '“I take oxybutynin for my bladder. It helps some, but my mouth is constantly dry, and honestly, I feel like I have brain fog half the day.”', { posterMaxClass: 'h-[340px] md:h-[380px] object-cover', label: 'Martha Clinical Observation' })}
+              </div>
+            </div>
+            ${renderQuizComponent('quiz-martha', 'Based on the safety evidence presented, what is the best pharmacologic adjustment for Martha?', [
+              'Increase the dose of her current anticholinergic',
+              'Discontinue medication entirely and rely only on fluid restriction',
+              'Switch to a beta-3 adrenergic receptor agonist such as mirabegron or vibegron'
+            ], 2, 'Best answer: switch to a beta-3 agonist. This preserves treatment intent while removing the same high anticholinergic side-effect and cognitive burden concerns.')}
+            ${renderNavigationButtons({ moduleId:'treatment', sectionId:'beta3', label:'Beta-3 Agonists' }, { moduleId:'sdm', sectionId:'step-therapy', label:'The Adherence Cliff' })}
+          </section>
+        `;
+      }
+
+      if (moduleId === 'sdm') {
+        if (sectionId === 'step-therapy') return `
+          ${renderHero('sdm', 'Practice Gap 3', 'The older step-therapy mindset breaks down when it ignores patient preference.', 'The final gap moves into shared decision-making. The message is not that one therapy fits everyone. It is that OAB care works better when patients are presented with meaningful options instead of being forced through a rigid linear pathway.', [
+            { label: 'Adherence', value: '32%', copy: 'Behavioral therapy adherence at 12 months in the module content.' },
+            { label: 'Persistence', value: '15–40%', copy: 'One-year persistence range for oral pharmacotherapy highlighted here.' },
+            { label: 'Opportunity', value: 'SDM', copy: 'Shared decision-making reframes care around fit, goals, and preference.' }
+          ])}
+          <section class="section-shell">
+            <div class="medical-grid">
+              <div class="medical-card col-span-12 lg:col-span-7 p-6 md:p-7">
+                <div class="pill !bg-emerald-100 !text-emerald-700 !border-emerald-200">Why the old model fails</div>
+                <h2 class="text-2xl font-black text-slate-900 mt-4">Linear treatment sequencing creates an adherence cliff.</h2>
+                <p class="text-slate-600 mt-3 leading-relaxed">When patients are asked to fail therapy after therapy before being offered something that better matches their life, treatment becomes a barrier rather than a solution.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                  <div class="rounded-2xl border border-red-100 bg-red-50/70 p-5">
+                    <div class="text-3xl font-black text-red-600">32%</div>
+                    <div class="text-xs uppercase tracking-[0.18em] text-red-800 font-bold mt-1">Behavioral adherence at 12 months</div>
+                  </div>
+                  <div class="rounded-2xl border border-red-100 bg-red-50/70 p-5">
+                    <div class="text-3xl font-black text-red-600">15–40%</div>
+                    <div class="text-xs uppercase tracking-[0.18em] text-red-800 font-bold mt-1">Pharmacotherapy persistence at 1 year</div>
+                  </div>
+                </div>
+              </div>
+              <div class="medical-card col-span-12 lg:col-span-5 p-6 md:p-7 bg-gradient-to-br from-white to-emerald-50/50">
+                <div class="pill">Clinical meaning</div>
+                <p class="text-slate-700 mt-4 leading-relaxed">Poor persistence is often not patient failure. It is usually a sign that the selected treatment did not align with goals, workflow, tolerability, or lifestyle.</p>
+                <div class="mt-5 rounded-2xl border border-emerald-100 bg-white p-4 text-sm text-slate-600">
+                  The more preference-sensitive the decision, the more shared decision-making matters.
+                </div>
+              </div>
+            </div>
+            ${renderNavigationButtons({ moduleId:'treatment', sectionId:'case-martha', label:'Case Study: Martha' }, { moduleId:'sdm', sectionId:'menu', label:'Menu of Options' })}
+          </section>
+        `;
+
+        if (sectionId === 'menu') return `
+          <section class="section-shell slide-up">
+            ${renderSectionHeader('sdm', 'The menu of options paradigm', 'The guideline framework presented here encourages clinicians to discuss a range of evidence-based choices rather than force one rigid staircase of care.')}
+            <div class="space-y-4">
+              <div class="feature-card border-l-4 border-teal-500">
+                <div class="flex items-start gap-4">
+                  <div class="h-12 w-12 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined">accessibility_new</span></div>
+                  <div>
+                    <h3 class="text-xl font-black text-slate-900">Behavioral therapies</h3>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">Bladder training, pelvic floor exercises, and fluid management remain foundational, but patients should not be delayed from other options if these do not fit their reality.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="feature-card border-l-4 border-blue-500">
+                <div class="flex items-start gap-4">
+                  <div class="h-12 w-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined">medication</span></div>
+                  <div>
+                    <h3 class="text-xl font-black text-slate-900">Pharmacotherapy</h3>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">Beta-3 agonists are preferred when pharmacotherapy is indicated, particularly when cognitive safety and tolerability are part of the discussion.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="feature-card border-l-4 border-purple-500">
+                <div class="flex items-start gap-4">
+                  <div class="h-12 w-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined">vaccines</span></div>
+                  <div>
+                    <h3 class="text-xl font-black text-slate-900">Minimally invasive and procedural options</h3>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">Interventions such as intradetrusor onabotulinumtoxinA and PTNS can be discussed without requiring that the patient “fail” every oral option first.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="medical-card p-6 md:p-7">
+              <div class="pill">Shared decision-making</div>
+              <h3 class="text-xl font-black text-slate-900 mt-4">The right question becomes: which option best matches this patient?</h3>
+              <p class="text-slate-600 mt-3 leading-relaxed">That framework is more realistic, more humane, and more aligned with long-term adherence than a rigid step-therapy mentality.</p>
+            </div>
+            ${renderNavigationButtons({ moduleId:'sdm', sectionId:'step-therapy', label:'The Adherence Cliff' }, { moduleId:'sdm', sectionId:'case-elena', label:'Case Study: Elena' })}
+          </section>
+        `;
+
+        if (sectionId === 'case-elena') return `
+          <section class="section-shell slide-up">
+            ${renderSectionHeader('sdm', 'Case Study: Elena', 'Elena represents the patient who needs options that fit her daily reality. This case is about preference-sensitive care and presenting non-pill pathways when they align with what matters most to the patient.')}
+            <div class="medical-grid">
+              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-white to-emerald-50/50">
+                <div class="pill">Patient Profile</div>
+                <div class="mt-5 flex items-start gap-4">
+                  <div class="w-14 h-14 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center text-xl font-black">E</div>
+                  <div>
+                    <h3 class="text-xl font-black text-slate-900">Elena</h3>
+                    <p class="text-sm text-slate-600 mt-1">45-year-old high school teacher with severe urgency incontinence.</p>
+                  </div>
+                </div>
+                <div class="mt-6 rounded-2xl border border-emerald-100 bg-white p-4 text-sm text-slate-600 leading-relaxed">
+                  <strong class="text-slate-900 block mb-1">Decision point</strong>
+                  Elena does not want another daily pill and cannot easily step away from the classroom when symptoms escalate.
+                </div>
+              </div>
+              <div class="col-span-12 lg:col-span-8">
+                ${renderClinicalVideoBlock('elena', 'Elena', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80', '#', '“I cannot just leave my classroom to run to the bathroom. I have tried pills before and hated taking them every day. I really want a different solution.”', { posterMaxClass: 'h-[340px] md:h-[380px] object-cover', label: 'Elena Clinical Observation' })}
+              </div>
+            </div>
+            ${renderQuizComponent('quiz-elena', 'Using a shared decision-making framework, what is the best next step for Elena?', [
+              'Tell her she must complete strict behavioral therapy first before discussing anything else',
+              'Prescribe a different daily pill and emphasize that adherence is mandatory',
+              'Discuss minimally invasive options such as onabotulinumtoxinA and refer to a specialist if she is interested'
+            ], 2, 'Best answer: discuss minimally invasive options and refer if appropriate. The newer framework supports presenting these options without forcing prior failure of therapies that do not align with patient preference.')}
+            <div class="completion-shell p-6 md:p-7">
+              <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+                <div>
+                  <div class="chip">Module Complete</div>
+                  <h3 class="text-2xl md:text-3xl font-black mt-3">OAB Elite learning track complete.</h3>
+                  <p class="text-white/80 mt-3 max-w-2xl leading-relaxed">You now have a cleaner, more premium module flow with stronger visual hierarchy, better Real World CE styling, richer case presentation, and upgraded educational cards throughout.</p>
+                </div>
+                <button class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-slate-900 font-bold shadow-xl hover:bg-slate-100 transition" onclick="alert('Module Complete! Thank you for reviewing the OAB guidelines.')">
+                  Finish Module
+                  <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                </button>
+              </div>
+            </div>
+            ${renderNavigationButtons({ moduleId:'sdm', sectionId:'menu', label:'Menu of Options' }, null)}
+          </section>
+        `;
+      }
+
+      return '';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderMainContent();
+    });
+  </script>
+</body>
+</html>
