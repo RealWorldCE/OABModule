@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Real World CE | OAB Elite Module</title>
+  <title>Real World CE | Overactive Bladder (OAB) Real World Data Module</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -305,6 +305,57 @@
     @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes floatOrb { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
 
+
+
+    /* Real World Data standardized blue/white module theme */
+    .glass-dark{
+      background:rgba(255,255,255,.96) !important;
+      color:#0f172a !important;
+      border-right:1px solid rgba(226,232,240,.95) !important;
+      box-shadow:0 10px 35px rgba(15,23,42,.05) !important;
+    }
+    .glass-dark .text-white\/82,
+    .glass-dark .text-blue-100\/55,
+    .glass-dark .text-blue-100\/60,
+    .glass-dark .text-blue-100\/65,
+    .glass-dark .text-blue-100\/70,
+    .glass-dark .text-blue-100\/80,
+    .glass-dark .text-white\/45{
+      color:#64748b !important;
+    }
+    .glass-dark .border-white\/10,
+    .glass-dark .border-white\/8{
+      border-color:#e2e8f0 !important;
+    }
+    .glass-dark .bg-white\/6,
+    .glass-dark .bg-white\/8{
+      background:#f8fafc !important;
+    }
+    .glass-dark .text-sky-300{ color:#2563eb !important; }
+    .gradient-rose,
+    .gradient-blue,
+    .gradient-emerald{
+      background:
+        radial-gradient(circle at 15% 10%, rgba(125,211,252,0.22), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(129,140,248,0.25), transparent 36%),
+        linear-gradient(135deg, #0f172a 0%, #1d4ed8 48%, #312e81 100%) !important;
+    }
+    .nav-btn{ color:#475569 !important; }
+    .nav-btn:hover{ background:#f8fafc !important; border-color:#bfdbfe !important; transform:translateX(2px); }
+    .nav-icon{ background:#eff6ff !important; color:#2563eb !important; }
+    .nav-btn.active-rose,
+    .nav-btn.active-blue,
+    .nav-btn.active-emerald{
+      background:#eff6ff !important;
+      color:#1d4ed8 !important;
+      border-color:#bfdbfe !important;
+      box-shadow:0 10px 24px rgba(59,130,246,.12) !important;
+    }
+    .progress-fill{ background:linear-gradient(90deg, #2563eb 0%, #4f46e5 100%) !important; }
+    .completion-shell{
+      background:linear-gradient(135deg, #0f172a 0%, #0b1f3a 42%, #1d4ed8 100%) !important;
+    }
+
     @media (max-width: 1024px){
       .hero-actions{ flex-direction:column; align-items:flex-start; }
     }
@@ -314,93 +365,158 @@
       .desktop-stats { display:none; }
       .section-shell { gap:1rem; }
     }
+  
+
+    /* Matched to attached Real World Data module layout */
+    .glass-cmv {
+      background: rgba(255,255,255,0.82) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-bottom: 1px solid rgba(226,232,240,0.95) !important;
+      box-shadow: 0 10px 35px rgba(15,23,42,0.05) !important;
+    }
+    .sidebar-shell {
+      background: rgba(255,255,255,0.96) !important;
+      backdrop-filter: blur(18px) !important;
+      -webkit-backdrop-filter: blur(18px) !important;
+    }
+    .hero-panel,
+    .hero-mesh,
+    .gradient-rose,
+    .gradient-blue,
+    .gradient-emerald,
+    .section-header-card.gradient-rose,
+    .section-header-card.gradient-blue,
+    .section-header-card.gradient-emerald {
+      background:
+        radial-gradient(circle at 15% 10%, rgba(125,211,252,0.22), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(129,140,248,0.25), transparent 36%),
+        linear-gradient(135deg, #0f172a 0%, #1d4ed8 48%, #312e81 100%) !important;
+      box-shadow: 0 24px 60px rgba(30,64,175,0.22) !important;
+    }
+    .section-card,
+    .medical-card,
+    .feature-card,
+    .stat-card {
+      background: rgba(255,255,255,0.88) !important;
+      backdrop-filter: blur(12px) !important;
+      border-color: rgba(226,232,240,0.9) !important;
+      box-shadow: 0 12px 28px rgba(15,23,42,0.05) !important;
+    }
+    .nav-progress,
+    .progress-fill {
+      background: linear-gradient(90deg, #2563eb 0%, #4f46e5 100%) !important;
+    }
+    .choice-card:hover,
+    .quiz-option:hover { transform: translateY(-1px); }
+    .soft-divider {
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(148,163,184,.5), transparent);
+    }
+    .rw-blue-btn {
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 10px 24px rgba(37,99,235,0.18);
+    }
+    .rw-blue-btn:hover { background:#1d4ed8; }
+    .completion-shell {
+      background:
+        radial-gradient(circle at 15% 10%, rgba(125,211,252,0.22), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(129,140,248,0.25), transparent 36%),
+        linear-gradient(135deg, #0f172a 0%, #1d4ed8 48%, #312e81 100%) !important;
+    }
+
   </style>
 </head>
-<body class="h-screen flex overflow-hidden">
-  <aside id="sidebar" class="glass-dark text-white flex-shrink-0 transition-all duration-300 w-[310px] flex flex-col z-30 absolute md:relative h-full transform md:transform-none -translate-x-full md:translate-x-0">
-    <div class="px-5 py-5 border-b border-white/10">
-      <div class="flex items-start justify-between gap-3">
-        <div class="flex items-center">
-          <div>
-            <div class="text-[1.02rem] font-black tracking-[0.14em] uppercase">Real World <span class="text-sky-300">CE</span></div>
-            <div class="text-[11px] uppercase tracking-[0.28em] text-blue-100/80 mt-1">Featuring: Real World Data</div>
-          </div>
-        </div>
-        <button class="md:hidden text-white/70 hover:text-white" onclick="toggleSidebar()">
-          <span class="material-symbols-outlined">close</span>
-        </button>
+
+<body class="text-slate-900 h-screen flex overflow-hidden">
+
+<aside class="sidebar-shell border-r border-slate-200/80 flex-shrink-0 transition-all duration-300 w-72 flex flex-col z-20 absolute md:relative h-full transform md:transform-none -translate-x-full md:translate-x-0" id="sidebar">
+  <div class="p-5 border-b border-slate-100 flex justify-between items-center">
+    <div>
+      <div class="font-extrabold text-blue-700 flex items-center gap-2 text-xl tracking-tight">
+        <span></span>
       </div>
+      <div class="text-xs text-slate-500 mt-1 font-medium"></div>
     </div>
-
-    <div class="px-5 py-4 border-b border-white/10">
-            <div class="mt-4">
-        <div class="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-blue-100/70 mb-2">
-          <span>Progress</span>
-          <span id="progress-text">1 / 10</span>
-        </div>
-        <div class="progress-track bg-white/10">
-          <div id="progress-fill" class="progress-fill"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="px-4 py-4 overflow-y-auto custom-scroll flex-1">
-      <div class="mb-5 grid grid-cols-3 gap-2 desktop-stats">
-        <div class="rounded-2xl bg-white/6 border border-white/8 p-3">
-          <div class="text-[11px] uppercase tracking-[0.14em] text-blue-100/65">Cases</div>
-          <div class="text-xl font-black mt-1">3</div>
-        </div>
-        <div class="rounded-2xl bg-white/6 border border-white/8 p-3">
-          <div class="text-[11px] uppercase tracking-[0.14em] text-blue-100/65">Quiz</div>
-          <div class="text-xl font-black mt-1">3</div>
-        </div>
-      </div>
-
-      <p class="text-[11px] text-blue-100/60 px-2 mb-4 uppercase tracking-[0.25em] font-semibold">Curriculum</p>
-      <div id="nav-container" class="space-y-5"></div>
-    </div>
-
-  </aside>
-
-  <div id="sidebar-overlay" class="fixed inset-0 bg-slate-950/50 backdrop-blur-sm z-20 hidden md:hidden" onclick="toggleSidebar()"></div>
-
-  <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-    <header class="sticky top-0 z-20 px-4 md:px-6 pt-4 md:pt-5">
-      <div class="glass-panel rounded-[1.35rem] px-4 md:px-5 py-3">
-        <div class="flex items-center justify-between gap-4">
-          <div class="flex items-center gap-4 min-w-0">
-            <button class="md:hidden p-2 rounded-xl hover:bg-slate-100 text-slate-700" onclick="toggleSidebar()">
-              <span class="material-symbols-outlined">menu</span>
-            </button>
-            <div class="min-w-0">
-              <div class="text-[11px] uppercase tracking-[0.22em] text-slate-500 font-semibold">Interactive Clinical Education</div>
-              <div class="flex items-center gap-2 text-sm md:text-base mt-1 min-w-0">
-                <span id="breadcrumb-module" class="font-black text-slate-900 truncate">Module</span>
-                <span class="material-symbols-outlined text-blue-600 text-[18px]">chevron_right</span>
-                <span id="breadcrumb-section" class="font-semibold text-slate-600 truncate">Section</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="hidden md:flex items-center gap-3">
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <main id="main-content" class="flex-1 overflow-y-auto px-4 md:px-6 pb-8 pt-4 custom-scroll"></main>
+    <button class="md:hidden text-slate-400 hover:text-slate-600" onclick="toggleSidebar()">
+      <span class="material-symbols-outlined">close</span>
+    </button>
   </div>
+
+  <div class="px-4 pt-4 pb-2">
+    <div class="rounded-2xl bg-slate-900 text-white p-4 blue-glow">
+      <div class="text-[11px] uppercase tracking-[0.24em] text-blue-200 font-bold">Clinical Track</div>
+      <div class="mt-2 text-sm text-slate-200">Structured module flow with cases, evidence, and knowledge checks.</div>
+      <div class="mt-4">
+        <div class="flex justify-between text-[11px] text-slate-300 mb-1 font-semibold">
+          <span>Progress</span>
+          <span id="sidebar-progress-text">1 / 10</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/10 overflow-hidden">
+          <div id="sidebar-progress-bar" class="h-full nav-progress rounded-full" style="width:10%"></div>
+        </div>
+      </div>
+    </div>
+    <p class="text-[11px] text-slate-400 px-2 mt-4 mb-2 uppercase tracking-[0.22em] font-bold">Module Navigation</p>
+  </div>
+
+  <div class="p-3 space-y-6 overflow-y-auto custom-scroll flex-1">
+    <div id="nav-container"></div>
+  </div>
+</aside>
+
+<div class="fixed inset-0 bg-slate-950/40 z-10 hidden md:hidden" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="sticky top-0 z-50 glass-cmv">
+ <div class="w-full px-5 py-3 flex items-center justify-between gap-4">
+  <div class="flex items-center gap-3 min-w-0">
+   <div class="leading-tight min-w-0">
+    <div class="text-base sm:text-lg font-extrabold tracking-tight uppercase whitespace-nowrap text-slate-900">
+     REAL WORLD <span class="text-blue-600">CE</span>
+    </div>
+    <div class="text-[10px] font-semibold tracking-[0.28em] uppercase text-slate-500 mt-1">
+     Featuring:
+     <span class="font-extrabold text-slate-900">REAL WORLD </span>
+     <span class="font-extrabold text-blue-600">DATA</span>
+    </div>
+   </div>
+  </div>
+
+  <div class="hidden lg:flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 border border-slate-200 shadow-sm text-sm text-slate-500">
+    <span class="material-symbols-outlined text-blue-600 text-[18px]">local_hospital</span>
+    <span class="capitalize font-bold text-slate-900" id="breadcrumb-module">Module</span>
+    <span class="material-symbols-outlined text-sm text-blue-600">chevron_right</span>
+    <span id="breadcrumb-section" class="font-semibold truncate max-w-[220px]">Section</span>
+  </div>
+
+  <div class="flex items-center gap-3">
+   <div class="hidden md:flex items-center gap-2 text-xs text-slate-500 font-semibold uppercase tracking-[0.18em]">
+    <span id="header-step-index">01</span>
+    <div class="w-10 h-px bg-slate-300"></div>
+    <span id="header-step-total">10</span>
+   </div>
+   <button class="p-2 hover:bg-slate-100 rounded-xl text-slate-600 md:hidden" onclick="toggleSidebar()">
+    <span class="material-symbols-outlined">menu</span>
+   </button>
+  </div>
+ </div>
+</header>
+
+  <main class="flex-1 overflow-y-auto p-4 md:p-8 bg-transparent scroll-smooth custom-scroll" id="main-content"></main>
+</div>
 
   <script>
     const appData = {
       modules: {
         diagnosis: {
           title: 'Diagnosis',
-          color: 'rose',
+          color: 'blue',
           sections: [
-            { id: 'intro', title: 'The Burden of OAB', icon: 'monitor_heart' },
+            { id: 'intro', title: 'Burden of Overactive Bladder (OAB)', icon: 'monitor_heart' },
             { id: 'barriers', title: 'Diagnostic Barriers', icon: 'visibility_off' },
-            { id: 'evaluation', title: 'AUA/SUFU Evaluation', icon: 'rule' },
+            { id: 'evaluation', title: 'AUA/SUFU Evaluation Pathway', icon: 'rule' },
             { id: 'case-arthur', title: 'Case Study: Arthur', icon: 'elderly' },
           ]
         },
@@ -414,8 +530,8 @@
           ]
         },
         sdm: {
-          title: 'SDM',
-          color: 'emerald',
+          title: 'Shared Decision-Making',
+          color: 'blue',
           sections: [
             { id: 'step-therapy', title: 'The Adherence Cliff', icon: 'trending_down' },
             { id: 'menu', title: 'Menu of Options', icon: 'list_alt' },
@@ -452,12 +568,12 @@
       const map = {
         rose: {
           banner: 'gradient-rose',
-          accentBtn: 'bg-rose-600 hover:bg-rose-700',
-          text: 'text-rose-700',
-          soft: 'bg-rose-50 border-rose-100',
-          badge: 'bg-rose-100 text-rose-700 border-rose-200',
-          ring: 'ring-rose-200',
-          gradientText: 'from-rose-500 to-pink-500'
+          accentBtn: 'bg-blue-600 hover:bg-blue-700',
+          text: 'text-blue-700',
+          soft: 'bg-blue-50 border-blue-100',
+          badge: 'bg-blue-100 text-blue-700 border-blue-200',
+          ring: 'ring-blue-200',
+          gradientText: 'from-blue-500 to-pink-500'
         },
         blue: {
           banner: 'gradient-blue',
@@ -470,12 +586,12 @@
         },
         emerald: {
           banner: 'gradient-emerald',
-          accentBtn: 'bg-emerald-600 hover:bg-emerald-700',
-          text: 'text-emerald-700',
-          soft: 'bg-emerald-50 border-emerald-100',
-          badge: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-          ring: 'ring-emerald-200',
-          gradientText: 'from-emerald-500 to-teal-500'
+          accentBtn: 'bg-blue-600 hover:bg-blue-700',
+          text: 'text-blue-700',
+          soft: 'bg-blue-50 border-blue-100',
+          badge: 'bg-blue-100 text-blue-700 border-blue-200',
+          ring: 'ring-blue-200',
+          gradientText: 'from-blue-600 to-blue-500'
         }
       };
       return map[color];
@@ -538,7 +654,7 @@
       return `
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
           <div>${prev ? `<button onclick="navigateTo('${prev.moduleId}', '${prev.sectionId}')" class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border border-slate-200 bg-white text-slate-700 font-semibold hover:border-slate-300 hover:bg-slate-50 transition"><span class="material-symbols-outlined text-[18px]">arrow_back</span>${prev.label}</button>` : ''}</div>
-          <div>${next ? `<button onclick="navigateTo('${next.moduleId}', '${next.sectionId}')" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition shadow-lg shadow-slate-900/10">${next.label}<span class="material-symbols-outlined text-[18px]">arrow_forward</span></button>` : ''}</div>
+          <div>${next ? `<button onclick="navigateTo('${next.moduleId}', '${next.sectionId}')" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-600/20">${next.label}<span class="material-symbols-outlined text-[18px]">arrow_forward</span></button>` : ''}</div>
         </div>
       `;
     }
@@ -565,8 +681,8 @@
           icon = '<div class="w-5 h-5 rounded-full border border-blue-500 bg-white flex items-center justify-center"><div class="w-2.5 h-2.5 rounded-full bg-blue-500"></div></div>';
         } else if (state.submitted) {
           if (idx === correctIndex) {
-            style = 'bg-emerald-50 border-emerald-300 ring-2 ring-emerald-200';
-            icon = '<div class="w-5 h-5 rounded-full bg-emerald-500 border-emerald-500 flex items-center justify-center"><span class="material-symbols-outlined text-white text-sm">check</span></div>';
+            style = 'bg-blue-50 border-blue-300 ring-2 ring-blue-200';
+            icon = '<div class="w-5 h-5 rounded-full bg-blue-600 border-blue-600 flex items-center justify-center"><span class="material-symbols-outlined text-white text-sm">check</span></div>';
           } else if (idx === state.selected) {
             style = 'bg-red-50 border-red-300 ring-2 ring-red-200';
             icon = '<div class="w-5 h-5 rounded-full border-red-500 flex items-center justify-center"><span class="material-symbols-outlined text-red-500 text-sm">close</span></div>';
@@ -575,11 +691,11 @@
           }
         }
         const clickAttr = !state.submitted ? `onclick="selectQuizOption('${id}', ${idx})"` : '';
-        return `<button ${clickAttr} class="quiz-option text-left w-full p-4 rounded-2xl border transition-all duration-200 flex items-start gap-3 mb-3 ${style}">${icon}<span class="text-sm leading-relaxed ${state.submitted && idx === correctIndex ? 'font-bold text-emerald-900' : 'text-slate-700'}">${opt}</span></button>`;
+        return `<button ${clickAttr} class="quiz-option text-left w-full p-4 rounded-2xl border transition-all duration-200 flex items-start gap-3 mb-3 ${style}">${icon}<span class="text-sm leading-relaxed ${state.submitted && idx === correctIndex ? 'font-bold text-blue-900' : 'text-slate-700'}">${opt}</span></button>`;
       }).join('');
 
       const feedback = state.submitted
-        ? `<div class="mt-5 p-5 rounded-2xl ${isCorrect ? 'bg-emerald-50 border border-emerald-200 text-emerald-900' : 'bg-red-50 border border-red-200 text-red-900'} fade-in"><div class="flex items-center gap-2 font-bold mb-2"><span class="material-symbols-outlined">${isCorrect ? 'check_circle' : 'cancel'}</span>${isCorrect ? 'Correct' : 'Incorrect'}</div><p class="text-sm leading-relaxed">${explanation}</p></div>`
+        ? `<div class="mt-5 p-5 rounded-2xl ${isCorrect ? 'bg-blue-50 border border-blue-200 text-blue-900' : 'bg-red-50 border border-red-200 text-red-900'} fade-in"><div class="flex items-center gap-2 font-bold mb-2"><span class="material-symbols-outlined">${isCorrect ? 'check_circle' : 'cancel'}</span>${isCorrect ? 'Correct' : 'Incorrect'}</div><p class="text-sm leading-relaxed">${explanation}</p></div>`
         : `<button onclick="submitQuiz('${id}', ${correctIndex})" class="mt-4 w-full py-3.5 rounded-2xl font-bold transition-all ${state.selected !== null ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/20' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}" ${state.selected === null ? 'disabled' : ''}>Submit Answer</button>`;
 
       return `
@@ -675,32 +791,36 @@
       let html = '';
       for (const modKey in appData.modules) {
         const module = appData.modules[modKey];
-        html += `<div class="mb-2"><div class="px-2 pb-2 text-[11px] uppercase tracking-[0.2em] text-blue-100/55 font-semibold">${module.title}</div><div class="space-y-2">`;
+        html += `<div class="mb-6"><h3 class="text-xs font-bold text-slate-400 uppercase tracking-[0.18em] mb-2 px-3">${module.title}</h3><div class="space-y-1.5">`;
         module.sections.forEach(section => {
           const isActive = activeModuleId === modKey && activeSectionId === section.id;
-          const activeClass = isActive ? `active-${module.color}` : 'text-white/82';
-          html += `
-            <button onclick="navigateTo('${modKey}', '${section.id}')" class="nav-btn ${activeClass}">
-              <div class="nav-icon ${isActive ? 'bg-slate-900/6 text-current' : ''}"><span class="material-symbols-outlined text-[18px]">${section.icon}</span></div>
-              <div class="min-w-0">
-                <div class="font-semibold leading-tight">${section.title}</div>
-                <div class="text-xs mt-1 ${isActive ? 'opacity-75' : 'text-white/45'}">Interactive learning section</div>
-              </div>
-            </button>
-          `;
+          const btnClass = isActive ? 'bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-200 shadow-sm font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900';
+          html += `<button onclick="navigateTo('${modKey}', '${section.id}')" class="w-full text-left px-3 py-3 rounded-2xl text-sm flex items-center gap-3 transition-all ${btnClass}"><span class="material-symbols-outlined text-[18px] opacity-70">${section.icon}</span><span class="flex-1">${section.title}</span></button>`;
         });
         html += `</div></div>`;
       }
       container.innerHTML = html;
       updateProgress();
+      const active = container.querySelector('.bg-blue-50');
+      if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
 
     function updateProgress() {
       const percent = getProgressPercent();
       const index = getSectionIndex(activeModuleId, activeSectionId) + 1;
       const total = getAllSections().length;
-      document.getElementById('progress-fill').style.width = `${percent}%`;
-      document.getElementById('progress-text').textContent = `${index} / ${total}`;
+      const sidebarBar = document.getElementById('sidebar-progress-bar');
+      const sidebarText = document.getElementById('sidebar-progress-text');
+      const headerIndex = document.getElementById('header-step-index');
+      const headerTotal = document.getElementById('header-step-total');
+      const legacyBar = document.getElementById('progress-fill');
+      const legacyText = document.getElementById('progress-text');
+      if (sidebarBar) sidebarBar.style.width = `${percent}%`;
+      if (sidebarText) sidebarText.textContent = `${index} / ${total}`;
+      if (headerIndex) headerIndex.textContent = String(index).padStart(2,'0');
+      if (headerTotal) headerTotal.textContent = String(total).padStart(2,'0');
+      if (legacyBar) legacyBar.style.width = `${percent}%`;
+      if (legacyText) legacyText.textContent = `${index} / ${total}`;
     }
 
     function renderMainContent(options = {}) {
@@ -762,7 +882,7 @@
 
       if (moduleId === 'diagnosis') {
         if (sectionId === 'intro') return `
-          ${renderHero('diagnosis', 'Diagnosis', 'Underdiagnosis and burden are still shaping OAB outcomes.', 'OAB is highly prevalent yet still under-recognized in primary care. This section frames the true clinical, quality-of-life, and downstream economic burden when symptoms are normalized, missed, or minimized.', [
+          ${renderHero('diagnosis', 'Diagnosis', 'Underdiagnosis and burden are still shaping overactive bladder (OAB) outcomes.', 'Overactive bladder (OAB) is highly prevalent yet still under-recognized in primary care. This section frames the true clinical, quality-of-life, and downstream economic burden when symptoms are normalized, missed, or minimized.', [
             { label: 'Estimated prevalence', value: '16–43%', copy: 'Adults affected across the US, with burden increasing by age.' },
             { label: 'Annual US cost', value: '$36.5B', copy: 'Direct medical and indirect productivity costs add up fast.' },
             { label: 'Clinical consequence', value: 'Falls', copy: 'Urgency and nocturia can translate into injury risk.' }
@@ -771,7 +891,7 @@
             <div class="medical-grid">
               <div class="medical-card col-span-12 lg:col-span-8 p-6 md:p-7">
                 <div class="flex items-center gap-3 mb-4">
-                  <div class="h-11 w-11 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center"><span class="material-symbols-outlined">analytics</span></div>
+                  <div class="h-11 w-11 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center"><span class="material-symbols-outlined">analytics</span></div>
                   <div>
                     <div class="text-sm uppercase tracking-[0.18em] text-slate-500 font-bold">Clinical takeaway</div>
                     <h2 class="text-2xl font-black text-slate-900">The burden extends well beyond urinary symptoms.</h2>
@@ -779,12 +899,12 @@
                 </div>
                 <p class="text-slate-600 leading-relaxed text-[15px]">Untreated OAB has meaningful implications for safety, sleep, emotional health, sexual function, and healthcare utilization. The patient may describe “just frequency,” but the clinical burden often includes hidden risks that compound over time.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                  <div class="feature-card border-l-4 border-rose-400">
+                  <div class="feature-card border-l-4 border-blue-500">
                     <div class="text-sm font-bold text-slate-900 mb-2">Patient-level harms</div>
                     <ul class="space-y-2 text-sm text-slate-600">
-                      <li class="flex gap-2"><span class="material-symbols-outlined text-rose-500 text-[18px]">check_circle</span>Sleep disruption and urgency-related anxiety</li>
-                      <li class="flex gap-2"><span class="material-symbols-outlined text-rose-500 text-[18px]">check_circle</span>Embarrassment, isolation, and quality-of-life erosion</li>
-                      <li class="flex gap-2"><span class="material-symbols-outlined text-rose-500 text-[18px]">check_circle</span>Higher risk of falls and fractures</li>
+                      <li class="flex gap-2"><span class="material-symbols-outlined text-blue-500 text-[18px]">check_circle</span>Sleep disruption and urgency-related anxiety</li>
+                      <li class="flex gap-2"><span class="material-symbols-outlined text-blue-500 text-[18px]">check_circle</span>Embarrassment, isolation, and quality-of-life erosion</li>
+                      <li class="flex gap-2"><span class="material-symbols-outlined text-blue-500 text-[18px]">check_circle</span>Higher risk of falls and fractures</li>
                     </ul>
                   </div>
                   <div class="feature-card border-l-4 border-slate-800">
@@ -797,19 +917,19 @@
                   </div>
                 </div>
               </div>
-              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-white to-rose-50/50">
-                <div class="pill !bg-rose-100 !text-rose-700 !border-rose-200">Burden Snapshot</div>
+              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-white to-blue-50/50">
+                <div class="pill !bg-blue-100 !text-blue-700 !border-blue-200">Burden Snapshot</div>
                 <div class="space-y-4 mt-5">
                   <div>
-                    <div class="text-4xl font-black text-rose-600">2.3x</div>
+                    <div class="text-4xl font-black text-blue-600">2.3x</div>
                     <div class="text-sm text-slate-600 mt-1">Increased fall and fracture risk described in the module content.</div>
                   </div>
-                  <div class="pt-4 border-t border-rose-100">
-                    <div class="text-4xl font-black text-rose-600">2.5x</div>
+                  <div class="pt-4 border-t border-blue-100">
+                    <div class="text-4xl font-black text-blue-600">2.5x</div>
                     <div class="text-sm text-slate-600 mt-1">Greater odds of depression when symptoms remain unaddressed.</div>
                   </div>
-                  <div class="pt-4 border-t border-rose-100">
-                    <div class="text-4xl font-black text-rose-600">4.7x</div>
+                  <div class="pt-4 border-t border-blue-100">
+                    <div class="text-4xl font-black text-blue-600">4.7x</div>
                     <div class="text-sm text-slate-600 mt-1">Greater odds of urinary tract infection burden discussed here.</div>
                   </div>
                 </div>
@@ -821,20 +941,20 @@
 
         if (sectionId === 'barriers') return `
           <section class="section-shell slide-up">
-            ${renderSectionHeader('diagnosis', 'Why OAB remains underdiagnosed', 'Diagnostic failure is rarely one single issue. It usually lives at the intersection of stigma, normalization, workflow pressure, and assumptions made during primary care visits.')}
+            ${renderSectionHeader('diagnosis', 'Why overactive bladder (OAB) remains underdiagnosed', 'Diagnostic failure is rarely one single issue. It usually lives at the intersection of stigma, normalization, workflow pressure, and assumptions made during primary care visits.')}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              <div class="feature-card border-t-4 border-rose-400">
+              <div class="feature-card border-t-4 border-blue-500">
                 <div class="flex items-center gap-3 mb-4">
-                  <div class="h-11 w-11 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center"><span class="material-symbols-outlined">record_voice_over</span></div>
+                  <div class="h-11 w-11 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center"><span class="material-symbols-outlined">record_voice_over</span></div>
                   <div>
                     <div class="text-sm uppercase tracking-[0.16em] text-slate-500 font-bold">Patient factors</div>
                     <h3 class="text-xl font-black text-slate-900">What patients may not say out loud</h3>
                   </div>
                 </div>
                 <div class="space-y-3 text-sm text-slate-600">
-                  <div class="rounded-2xl border border-rose-100 bg-rose-50/70 p-4"><strong class="text-slate-900">Normalization:</strong> Symptoms are dismissed as a normal part of aging, childbirth, or “just getting older.”</div>
-                  <div class="rounded-2xl border border-rose-100 bg-white p-4"><strong class="text-slate-900">Stigma:</strong> Urinary urgency and leakage are often embarrassing enough that patients avoid bringing them up.</div>
-                  <div class="rounded-2xl border border-rose-100 bg-white p-4"><strong class="text-slate-900">Self-management:</strong> Patients may reduce fluids or rely on pads instead of seeking diagnosis and therapy.</div>
+                  <div class="rounded-2xl border border-blue-100 bg-blue-50/70 p-4"><strong class="text-slate-900">Normalization:</strong> Symptoms are dismissed as a normal part of aging, childbirth, or “just getting older.”</div>
+                  <div class="rounded-2xl border border-blue-100 bg-white p-4"><strong class="text-slate-900">Stigma:</strong> Urinary urgency and leakage are often embarrassing enough that patients avoid bringing them up.</div>
+                  <div class="rounded-2xl border border-blue-100 bg-white p-4"><strong class="text-slate-900">Self-management:</strong> Patients may reduce fluids or rely on pads instead of seeking diagnosis and therapy.</div>
                 </div>
               </div>
 
@@ -855,26 +975,26 @@
             </div>
             <div class="medical-card p-6 md:p-7">
               <div class="pill">Clinical frame</div>
-              <h3 class="text-xl font-black text-slate-900 mt-4">OAB is often underdiagnosed because both sides assume the symptoms are expected.</h3>
+              <h3 class="text-xl font-black text-slate-900 mt-4">OAB is often underdiagnosed because both patients and clinicians may assume the symptoms are expected.</h3>
               <p class="text-slate-600 mt-3 leading-relaxed">The most impactful move in primary care is often very simple: ask. Screening for urgency, frequency, nocturia, and urgency incontinence in at-risk patients can uncover significant disease burden that otherwise stays hidden.</p>
             </div>
-            ${renderNavigationButtons({ moduleId:'diagnosis', sectionId:'intro', label:'The Burden of OAB' }, { moduleId:'diagnosis', sectionId:'evaluation', label:'AUA/SUFU Evaluation' })}
+            ${renderNavigationButtons({ moduleId:'diagnosis', sectionId:'intro', label:'Burden of OAB' }, { moduleId:'diagnosis', sectionId:'evaluation', label:'AUA/SUFU Evaluation Pathway' })}
           </section>
         `;
 
         if (sectionId === 'evaluation') return `
           <section class="section-shell slide-up">
-            ${renderSectionHeader('diagnosis', '2024 AUA/SUFU evaluation pathway', 'For most patients, the diagnosis of OAB is clinical. The early workup should be focused, practical, and designed to rule out common competing explanations without overtesting.')}
+            ${renderSectionHeader('diagnosis', '2024 American Urological Association/Society of Urodynamics, Female Pelvic Medicine & Urogenital Reconstruction (AUA/SUFU) evaluation pathway', 'For most patients, the diagnosis of OAB is clinical. The early workup should be focused, practical, and designed to rule out common competing explanations without overtesting.')}
             <div class="medical-grid">
               <div class="medical-card col-span-12 lg:col-span-8 p-0 overflow-hidden">
                 <div class="medical-card-header">
-                  <div class="pill !bg-emerald-100 !text-emerald-700 !border-emerald-200">Recommended initial evaluation</div>
+                  <div class="pill !bg-blue-100 !text-blue-700 !border-blue-200">Recommended initial evaluation</div>
                   <h3 class="text-2xl font-black text-slate-900 mt-3">What should happen first in primary care</h3>
                 </div>
                 <div class="p-6 md:p-7 space-y-4">
-                  <div class="flex gap-4 items-start rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4"><div class="bg-emerald-500 text-white w-9 h-9 rounded-full flex items-center justify-center font-black flex-shrink-0">1</div><div><strong class="text-slate-900 block">Medical history</strong><span class="text-sm text-slate-600">Assess bladder symptoms, medication contributors such as diuretics, and mobility or fall-related risk.</span></div></div>
-                  <div class="flex gap-4 items-start rounded-2xl border border-emerald-100 bg-white p-4"><div class="bg-emerald-500 text-white w-9 h-9 rounded-full flex items-center justify-center font-black flex-shrink-0">2</div><div><strong class="text-slate-900 block">Focused physical examination</strong><span class="text-sm text-slate-600">Use a targeted exam to identify contributing or competing clinical factors.</span></div></div>
-                  <div class="flex gap-4 items-start rounded-2xl border border-emerald-100 bg-white p-4"><div class="bg-emerald-500 text-white w-9 h-9 rounded-full flex items-center justify-center font-black flex-shrink-0">3</div><div><strong class="text-slate-900 block">Urinalysis</strong><span class="text-sm text-slate-600">Rule out UTI, hematuria, glucosuria, and other common alternative causes.</span></div></div>
+                  <div class="flex gap-4 items-start rounded-2xl border border-blue-100 bg-blue-50/60 p-4"><div class="bg-blue-600 text-white w-9 h-9 rounded-full flex items-center justify-center font-black flex-shrink-0">1</div><div><strong class="text-slate-900 block">Medical history</strong><span class="text-sm text-slate-600">Assess bladder symptoms, medication contributors such as diuretics, and mobility or fall-related risk.</span></div></div>
+                  <div class="flex gap-4 items-start rounded-2xl border border-blue-100 bg-white p-4"><div class="bg-blue-600 text-white w-9 h-9 rounded-full flex items-center justify-center font-black flex-shrink-0">2</div><div><strong class="text-slate-900 block">Focused physical examination</strong><span class="text-sm text-slate-600">Use a targeted exam to identify contributing or competing clinical factors.</span></div></div>
+                  <div class="flex gap-4 items-start rounded-2xl border border-blue-100 bg-white p-4"><div class="bg-blue-600 text-white w-9 h-9 rounded-full flex items-center justify-center font-black flex-shrink-0">3</div><div><strong class="text-slate-900 block">Urinalysis</strong><span class="text-sm text-slate-600">Rule out urinary tract infection (UTI), hematuria, glucosuria, and other common alternative causes.</span></div></div>
                 </div>
               </div>
 
@@ -886,7 +1006,7 @@
                   <span class="px-3 py-2 rounded-full bg-white border border-red-200 text-red-700 text-xs font-bold">Cystoscopy</span>
                   <span class="px-3 py-2 rounded-full bg-white border border-red-200 text-red-700 text-xs font-bold">Urinary tract imaging</span>
                 </div>
-                <p class="text-sm text-slate-600 mt-4 leading-relaxed">These are not routine first-step tests for an uncomplicated primary care presentation of OAB symptoms.</p>
+                <p class="text-sm text-slate-600 mt-4 leading-relaxed">These are not routine first-step tests for an uncomplicated primary care presentation of overactive bladder symptoms.</p>
               </div>
             </div>
             ${renderNavigationButtons({ moduleId:'diagnosis', sectionId:'barriers', label:'Diagnostic Barriers' }, { moduleId:'diagnosis', sectionId:'case-arthur', label:'Case Study: Arthur' })}
@@ -897,8 +1017,8 @@
           <section class="section-shell slide-up">
             ${renderSectionHeader('diagnosis', 'Case Study: Arthur', 'Arthur presents with symptoms that could easily be misattributed. The educational point here is to slow down, consider OAB, and follow a guideline-based clinical evaluation.')}
             <div class="medical-grid">
-              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-white to-rose-50/40">
-                <div class="pill !bg-rose-100 !text-rose-700 !border-rose-200">Patient Profile</div>
+              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-white to-blue-50/40">
+                <div class="pill !bg-blue-100 !text-blue-700 !border-blue-200">Patient Profile</div>
                 <div class="mt-5 flex items-start gap-4">
                   <div class="w-14 h-14 rounded-2xl bg-slate-200 text-slate-700 flex items-center justify-center text-xl font-black">A</div>
                   <div>
@@ -906,21 +1026,21 @@
                     <p class="text-sm text-slate-600 mt-1">72-year-old male presenting during a routine check-up.</p>
                   </div>
                 </div>
-                <div class="mt-6 rounded-2xl border border-rose-100 bg-white p-4 text-sm text-slate-600 leading-relaxed">
+                <div class="mt-6 rounded-2xl border border-blue-100 bg-white p-4 text-sm text-slate-600 leading-relaxed">
                   <strong class="text-slate-900 block mb-1">Clinical trap</strong>
-                  Because Arthur is older and male, it is easy to assume the symptoms are only related to BPH. The case is designed to challenge that shortcut.
+                  Because Arthur is older and male, it is easy to assume the symptoms are only related to benign prostatic hyperplasia (BPH). The case is designed to challenge that shortcut.
                 </div>
               </div>
               <div class="col-span-12 lg:col-span-8">
                 ${renderClinicalVideoBlock('arthur', 'Arthur', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=1200&q=80', '#', '“I have to go to the bathroom all the time, especially at night. It comes on so suddenly. I actually tripped in the hallway last week rushing to the toilet.”', { posterMaxClass: 'h-[340px] md:h-[380px] object-cover object-top', label: 'Arthur Clinical Observation' })}
               </div>
             </div>
-            ${renderQuizComponent('quiz-arthur', 'According to AUA/SUFU guidance, what is the most appropriate next step for Arthur in primary care?', [
+            ${renderQuizComponent('quiz-arthur', 'According to American Urological Association/Society of Urodynamics, Female Pelvic Medicine & Urogenital Reconstruction (AUA/SUFU) guidance, what is the most appropriate next step for Arthur in primary care?', [
               'Referral for immediate cystoscopy to rule out obstruction',
               'Thorough history, focused exam, and a urinalysis',
               'Order comprehensive urodynamic testing'
-            ], 1, 'Correct approach: start with a history, a focused physical examination, and urinalysis. OAB should remain on the differential, and invasive testing is not routinely the first step.')}
-            ${renderNavigationButtons({ moduleId:'diagnosis', sectionId:'evaluation', label:'AUA/SUFU Evaluation' }, { moduleId:'treatment', sectionId:'anticholinergics', label:'Anticholinergic Risk' })}
+            ], 1, 'Correct approach: start with a history, a focused physical examination, and urinalysis. Overactive bladder should remain on the differential, and invasive testing is not routinely the first step.')}
+            ${renderNavigationButtons({ moduleId:'diagnosis', sectionId:'evaluation', label:'AUA/SUFU Evaluation Pathway' }, { moduleId:'treatment', sectionId:'anticholinergics', label:'Anticholinergic Risk' })}
           </section>
         `;
       }
@@ -928,7 +1048,7 @@
       if (moduleId === 'treatment') {
         if (sectionId === 'anticholinergics') return `
           ${renderHero('treatment', 'Treatment', 'Treatment decisions should balance efficacy with long-term cognitive safety.', 'The module shifts from diagnosis into pharmacologic risk. Anticholinergic prescribing remains common, yet safer pathways exist and should be actively considered in primary care decision-making.', [
-            { label: 'PCP prescribing', value: '57.9%', copy: '57.9% of anticholinergic prescriptions for OAB are made by PCPs.' },
+            { label: 'PCP prescribing', value: '57.9%', copy: '57.9% of anticholinergic prescriptions for OAB are made by primary care providers (PCPs).' },
             { label: 'Key concern', value: 'Dementia', copy: 'Cumulative anticholinergic burden is a major safety issue in older adults.' },
             { label: 'Clinical signal', value: 'Dry mouth', copy: 'Classic side effects often impair adherence and quality of life.' }
           ])}
@@ -951,11 +1071,11 @@
               <div class="medical-card col-span-12 lg:col-span-5 p-6 md:p-7 bg-gradient-to-br from-white to-blue-50/50">
                 <div class="pill">Prescribing reality</div>
                 <div class="mt-5">
-                  <div class="flex items-center justify-between text-sm font-semibold text-slate-600 mb-2"><span>OAB anticholinergic prescriptions made by PCPs</span><span>57.9%</span></div>
+                  <div class="flex items-center justify-between text-sm font-semibold text-slate-600 mb-2"><span>OAB anticholinergic prescriptions made by primary care providers (PCPs)</span><span>57.9%</span></div>
                   <div class="w-full bg-slate-200 rounded-full h-6 overflow-hidden"><div class="h-6 rounded-full bg-gradient-to-r from-blue-600 to-sky-400 flex items-center pl-3 text-xs font-bold text-white" style="width:57.9%">57.9%</div></div>
                 </div>
                 <div class="mt-5 pt-5 border-t border-slate-200 text-sm text-slate-600 leading-relaxed">
-                  57.9% of anticholinergic prescriptions for OAB are made by PCPs, making medication selection a meaningful educational intervention point in routine care.
+                  57.9% of anticholinergic prescriptions for OAB are made by primary care providers (PCPs), making medication selection a meaningful educational intervention point in routine care.
                 </div>
               </div>
             </div>
@@ -981,7 +1101,7 @@
                 <h3 class="text-xl font-black text-slate-900 mt-4">Newer, selective option</h3>
                 <ul class="mt-4 space-y-3 text-sm text-slate-600">
                   <li class="flex gap-2"><span class="material-symbols-outlined text-cyan-500 text-[18px]">check_circle</span>Highly selective beta-3 agonist</li>
-                  <li class="flex gap-2"><span class="material-symbols-outlined text-cyan-500 text-[18px]">check_circle</span>More polypharmacy friendly because it does not impact CYP2D6 in the way highlighted in the source content</li>
+                  <li class="flex gap-2"><span class="material-symbols-outlined text-cyan-500 text-[18px]">check_circle</span>More polypharmacy friendly because it does not impact cytochrome P450 2D6 (CYP2D6) in the way highlighted in the source content</li>
                   <li class="flex gap-2"><span class="material-symbols-outlined text-cyan-500 text-[18px]">check_circle</span>Longer persistence described in retrospective claims data within the module</li>
                 </ul>
               </div>
@@ -1029,7 +1149,7 @@
 
       if (moduleId === 'sdm') {
         if (sectionId === 'step-therapy') return `
-          ${renderHero('sdm', 'SDM', 'The older step-therapy mindset breaks down when it ignores patient preference.', 'The final gap moves into shared decision-making. The message is not that one therapy fits everyone. It is that OAB care works better when patients are presented with meaningful options instead of being forced through a rigid linear pathway.', [
+          ${renderHero('sdm', 'Shared Decision-Making (SDM)', 'The older step-therapy mindset breaks down when it ignores patient preference.', 'The final gap moves into shared decision-making. The message is not that one therapy fits everyone. It is that overactive bladder care works better when patients are presented with meaningful options instead of being forced through a rigid linear pathway.', [
             { label: 'Adherence', value: '32%', copy: 'Behavioral therapy adherence at 12 months in the module content.' },
             { label: 'Persistence', value: '15–40%', copy: 'One-year persistence range for oral pharmacotherapy highlighted here.' },
             { label: 'Opportunity', value: 'SDM', copy: 'Shared decision-making reframes care around fit, goals, and preference.' }
@@ -1037,7 +1157,7 @@
           <section class="section-shell">
             <div class="medical-grid">
               <div class="medical-card col-span-12 lg:col-span-7 p-6 md:p-7">
-                <div class="pill !bg-emerald-100 !text-emerald-700 !border-emerald-200">Why the old model fails</div>
+                <div class="pill !bg-blue-100 !text-blue-700 !border-blue-200">Why the old model fails</div>
                 <h2 class="text-2xl font-black text-slate-900 mt-4">Linear treatment sequencing creates an adherence cliff.</h2>
                 <p class="text-slate-600 mt-3 leading-relaxed">When patients are asked to fail therapy after therapy before being offered something that better matches their life, treatment becomes a barrier rather than a solution.</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
@@ -1051,10 +1171,10 @@
                   </div>
                 </div>
               </div>
-              <div class="medical-card col-span-12 lg:col-span-5 p-6 md:p-7 bg-gradient-to-br from-white to-emerald-50/50">
+              <div class="medical-card col-span-12 lg:col-span-5 p-6 md:p-7 bg-gradient-to-br from-white to-blue-50/50">
                 <div class="pill">Clinical meaning</div>
                 <p class="text-slate-700 mt-4 leading-relaxed">Poor persistence is often not patient failure. It is usually a sign that the selected treatment did not align with goals, workflow, tolerability, or lifestyle.</p>
-                <div class="mt-5 rounded-2xl border border-emerald-100 bg-white p-4 text-sm text-slate-600">
+                <div class="mt-5 rounded-2xl border border-blue-100 bg-white p-4 text-sm text-slate-600">
                   The more preference-sensitive the decision, the more shared decision-making matters.
                 </div>
               </div>
@@ -1067,9 +1187,9 @@
           <section class="section-shell slide-up">
             ${renderSectionHeader('sdm', 'The menu of options paradigm', 'The guideline framework presented here encourages clinicians to discuss a range of evidence-based choices rather than force one rigid staircase of care.')}
             <div class="space-y-4">
-              <div class="feature-card border-l-4 border-teal-500">
+              <div class="feature-card border-l-4 border-blue-500">
                 <div class="flex items-start gap-4">
-                  <div class="h-12 w-12 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined">accessibility_new</span></div>
+                  <div class="h-12 w-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined">accessibility_new</span></div>
                   <div>
                     <h3 class="text-xl font-black text-slate-900">Behavioral therapies</h3>
                     <p class="text-sm text-slate-600 mt-2 leading-relaxed">Bladder training, pelvic floor exercises, and fluid management remain foundational, but patients should not be delayed from other options if these do not fit their reality.</p>
@@ -1090,7 +1210,7 @@
                   <div class="h-12 w-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined">vaccines</span></div>
                   <div>
                     <h3 class="text-xl font-black text-slate-900">Minimally invasive and procedural options</h3>
-                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">Interventions such as intradetrusor onabotulinumtoxinA and PTNS can be discussed without requiring that the patient “fail” every oral option first.</p>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">Interventions such as intradetrusor onabotulinumtoxinA and percutaneous tibial nerve stimulation (PTNS) can be discussed without requiring that the patient “fail” every oral option first.</p>
                   </div>
                 </div>
               </div>
@@ -1108,16 +1228,16 @@
           <section class="section-shell slide-up">
             ${renderSectionHeader('sdm', 'Case Study: Elena', 'Elena represents the patient who needs options that fit her daily reality. This case is about preference-sensitive care and presenting non-pill pathways when they align with what matters most to the patient.')}
             <div class="medical-grid">
-              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-white to-emerald-50/50">
+              <div class="medical-card col-span-12 lg:col-span-4 p-6 md:p-7 bg-gradient-to-br from-white to-blue-50/50">
                 <div class="pill">Patient Profile</div>
                 <div class="mt-5 flex items-start gap-4">
-                  <div class="w-14 h-14 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center text-xl font-black">E</div>
+                  <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl font-black">E</div>
                   <div>
                     <h3 class="text-xl font-black text-slate-900">Elena</h3>
                     <p class="text-sm text-slate-600 mt-1">45-year-old high school teacher with severe urgency incontinence.</p>
                   </div>
                 </div>
-                <div class="mt-6 rounded-2xl border border-emerald-100 bg-white p-4 text-sm text-slate-600 leading-relaxed">
+                <div class="mt-6 rounded-2xl border border-blue-100 bg-white p-4 text-sm text-slate-600 leading-relaxed">
                   <strong class="text-slate-900 block mb-1">Decision point</strong>
                   Elena does not want another daily pill and cannot easily step away from the classroom when symptoms escalate.
                 </div>
